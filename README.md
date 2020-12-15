@@ -1,4 +1,4 @@
-# farmassist
+# Farmassist
 
 Precision farming application.
 
