@@ -1,8 +1,12 @@
 import 'package:farmassist/src/views/ui/page2.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:farmassist/src/views/ui/homePage.dart';
+import 'package:farmassist/src/business_logic/firebase/fireStore/storeData.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(AppLayout());
 }
 
