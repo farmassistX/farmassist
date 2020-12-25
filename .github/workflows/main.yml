@@ -7,7 +7,7 @@ on:
         default: 'warning'
       tags:
         description: 'Test scenario tags'
-name: Test, Build and Release apk
+name: Test, Build and Release APK
 jobs:
   build:
     name: Build APK
@@ -22,7 +22,7 @@ jobs:
           flutter-version: '1.22.4'
       - run: flutter pub get
       - run: flutter test
-      - run: flutter build apk --debug --split-per-abi
+      - run: flutter build apk --split-per-abi
       - name: Create a Release APK
         uses: ncipollo/release-action@v1
         with:
