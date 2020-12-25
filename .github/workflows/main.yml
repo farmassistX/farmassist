@@ -28,4 +28,4 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "build/app/outputs/apk/release/*.apk"
-          token: ${{ FARMASSIST_SECRET }}
+          token: ${{ secrets.FARMASSIST_SECRET }}
