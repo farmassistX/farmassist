@@ -1,18 +1,54 @@
+import 'package:farmassist/ui/diseases/disease_detection_page.dart';
+import 'package:farmassist/ui/farm/farm_management_page.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomePage extends StatefulWidget {
+  static Route route() {
+    return MaterialPageRoute<void>(builder: (_) => HomePage());
+  }
+
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 1;
+  final List pages = [DiseaseDetectionPage(), FarmManagementPage(), null];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      child: Center(
-        child: Text("Home"),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Farmassist'),
+      ),
+      body: pages[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.camera_alt_rounded),
+            label: 'Camera',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message_rounded),
+            label: 'Chat',
+          )
+        ],
+        currentIndex: _selectedIndex,
+        backgroundColor: Color(0xFFF9F9FB),
+        unselectedItemColor: Colors.grey,
+        selectedItemColor: Colors.green[800],
+        onTap: _onItemTapped,
+        elevation: 1,
       ),
     );
   }

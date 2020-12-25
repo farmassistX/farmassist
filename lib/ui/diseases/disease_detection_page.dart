@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class CameraPage extends StatefulWidget {
+class DiseaseDetectionPage extends StatefulWidget {
   @override
-  _CameraPageState createState() => _CameraPageState();
+  _DiseaseDetectionPageState createState() => _DiseaseDetectionPageState();
 }
 
-class _CameraPageState extends State<CameraPage> {
+class _DiseaseDetectionPageState extends State<DiseaseDetectionPage> {
   @override
   Widget build(BuildContext context) {
     return Container(

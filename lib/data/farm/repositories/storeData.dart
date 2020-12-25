@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'Planting.dart';
+import 'package:farmassist/data/farm/models/Planting.dart';
 
 void addData(Planting obj) {
   String month = DateTime.now().month.toString().toLowerCase();
