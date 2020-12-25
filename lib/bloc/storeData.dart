@@ -1,14 +1,14 @@
-import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'Planting.dart';
 
-void addData(Planting obj){
+void addData(Planting obj) {
   String month = DateTime.now().month.toString().toLowerCase();
 
   FirebaseFirestore db = FirebaseFirestore.instance;
-  CollectionReference cr = db.collection("Planting").doc(month).collection("Activity");
+  CollectionReference cr =
+      db.collection("Planting").doc(month).collection("Activity");
 
-  Map<String,dynamic> data = {
+  Map<String, dynamic> data = {
     "name": obj.name,
     "noOfPlants": obj.noOfPlants,
     "date": obj.date,

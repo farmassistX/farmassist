@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:farmassist/src/views/ui/page2.dart';
 
-class HomeScreen extends StatefulWidget {
+class CameraPage extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _CameraPageState createState() => _CameraPageState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _CameraPageState extends State<CameraPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: Center(
-        child: Text("Home"),
+        child: Text("Hello"),
       ),
     );
   }

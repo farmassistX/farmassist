@@ -14,3 +14,14 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+# General Summary
+Please refer to [Effective Dart: Style](https://dart.dev/guides/language/effective-dart/style) for naming guide.
+All the code are basically located inside the *lib* folder.
+
+## Important Packages
+1. ui = separate each page's code into this package.
+2. components = if there are some reusable components, can put it here.
+
+## Important Files
+1. main.dart = dart file that contains the app layout (scaffold and bottom nav)

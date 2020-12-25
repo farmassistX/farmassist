@@ -1,4 +1,4 @@
-class Planting{
+class Planting {
   String _name;
   int _noOfPlants;
   DateTime _date;
