@@ -1,7 +1,11 @@
+import 'package:farmassist/app_theme.dart';
+import 'package:farmassist/ui/IoT/IoT_monitoring_page.dart';
+import 'package:farmassist/ui/bottom_navigation_bar/bottom_navigation_bar.dart';
+import 'package:farmassist/ui/bottom_navigation_bar/tab_icon_data.dart';
 import 'package:farmassist/ui/diseases/disease_detection_page.dart';
 import 'package:farmassist/ui/farm/farm_management_page.dart';
+import 'package:farmassist/ui/profile/user_profile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 
 class HomePage extends StatefulWidget {
   static Route route() {
@@ -13,47 +17,90 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 1;
-  final List pages = [DiseaseDetectionPage(), FarmManagementPage(), null];
+  List<TabIconData> tabIconsList = TabIconData.tabIconsList;
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
+  Widget tabBody = Container(
+    color: AppTheme.background,
+  );
+
+  @override
+  void initState() {
+    tabIconsList.forEach((TabIconData tab) {
+      tab.isSelected = false;
     });
+    tabIconsList[0].isSelected = true;
+    tabBody = FarmManagementPage();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Farmassist'),
+    return Container(
+      color: AppTheme.background,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: FutureBuilder<bool>(
+          future: getData(),
+          builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+            if (!snapshot.hasData) {
+              return const SizedBox();
+            } else {
+              return Stack(
+                children: <Widget>[
+                  tabBody,
+                  bottomNavBar(),
+                ],
+              );
+            }
+          },
+        ),
       ),
-      body: pages[_selectedIndex],
-      bottomNavigationBar:SnakeNavigationBar.color(
-        behaviour: SnakeBarBehaviour.pinned,
-        snakeShape: SnakeShape.indicator,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.camera_alt_rounded),
-            label: 'Camera',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.message_rounded),
-            label: 'Chat',
-          )
-        ],
-        currentIndex: _selectedIndex,
-        backgroundColor: Color(0xFFF9F9FB),
-        unselectedItemColor: Colors.grey,
-        selectedItemColor: Colors.green[800],
-        showSelectedLabels: true,
-        onTap: _onItemTapped,
-        elevation: 1,
-      ),
+    );
+  }
+
+  Future<bool> getData() async {
+    await Future<dynamic>.delayed(const Duration(milliseconds: 200));
+    return true;
+  }
+
+  Widget bottomNavBar() {
+    return Column(
+      children: <Widget>[
+        const Expanded(
+          child: SizedBox(),
+        ),
+        BottomNavBar(
+          tabIconsList: tabIconsList,
+          addClick: () {},
+          changeIndex: (int index) {
+            if (!mounted) return;
+            switch (index) {
+              case 0:
+                setState(() {
+                  tabBody = FarmManagementPage();
+                });
+                break;
+              case 1:
+                setState(() {
+                  tabBody = IoTMonitoringPage();
+                });
+                break;
+              case 2:
+                setState(() {
+                  tabBody = DiseaseDetectionPage();
+                });
+                break;
+              case 3:
+                setState(() {
+                  tabBody = UserProfilePage();
+                });
+                break;
+              default:
+                break;
+            }
+          },
+        ),
+      ],
     );
   }
 }

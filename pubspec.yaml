@@ -17,10 +17,8 @@ dependencies:
   flutter_bloc: "^6.1.0"
   font_awesome_flutter: "^8.4.0"
   formz: "^0.3.0"
-  google_fonts: "^1.1.0"
   google_sign_in: "^4.5.4"
   pedantic: "^1.9.0"
-  flutter_snake_navigationbar:
 
 dev_dependencies:
   flutter_test:
