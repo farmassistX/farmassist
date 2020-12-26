@@ -1,6 +1,7 @@
 import 'package:farmassist/ui/diseases/disease_detection_page.dart';
 import 'package:farmassist/ui/farm/farm_management_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 
 class HomePage extends StatefulWidget {
   static Route route() {
@@ -28,7 +29,9 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Farmassist'),
       ),
       body: pages[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar:SnakeNavigationBar.color(
+        behaviour: SnakeBarBehaviour.pinned,
+        snakeShape: SnakeShape.indicator,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.camera_alt_rounded),
@@ -47,6 +50,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Color(0xFFF9F9FB),
         unselectedItemColor: Colors.grey,
         selectedItemColor: Colors.green[800],
+        showSelectedLabels: true,
         onTap: _onItemTapped,
         elevation: 1,
       ),
