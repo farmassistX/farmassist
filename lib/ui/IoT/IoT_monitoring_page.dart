@@ -1,14 +1,20 @@
+import 'package:farmassist/ui/widgets/tab_page.dart';
 import 'package:flutter/material.dart';
 
-class IoTMonitoringPage extends StatefulWidget {
+class IoTMonitoringPage extends TabPage {
+  const IoTMonitoringPage({Key key, @required String pageTitle})
+      : super(key: key, pageTitle: pageTitle);
+
   @override
   _IoTMonitoringPageState createState() => _IoTMonitoringPageState();
 }
 
-class _IoTMonitoringPageState extends State<IoTMonitoringPage> {
+class _IoTMonitoringPageState extends TabPageState<IoTMonitoringPage> {
+  @override
+  void dispose() => super.dispose();
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return super.build(context);
   }
 }
-

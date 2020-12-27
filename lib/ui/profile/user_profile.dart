@@ -1,13 +1,22 @@
+import 'package:farmassist/ui/widgets/tab_page.dart';
 import 'package:flutter/material.dart';
 
-class UserProfilePage extends StatefulWidget {
+class UserProfilePage extends TabPage {
+  const UserProfilePage({Key key, @required String pageTitle})
+      : super(key: key, pageTitle: pageTitle);
+
   @override
-  _UserProfilePageState createState() => _UserProfilePageState();
+  _UserProfilePagePageState createState() => _UserProfilePagePageState();
 }
 
-class _UserProfilePageState extends State<UserProfilePage> {
+class _UserProfilePagePageState extends TabPageState<UserProfilePage> {
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return super.build(context);
   }
 }

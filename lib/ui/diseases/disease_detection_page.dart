@@ -1,19 +1,22 @@
+import 'package:farmassist/ui/widgets/tab_page.dart';
 import 'package:flutter/material.dart';
 
-class DiseaseDetectionPage extends StatefulWidget {
+class DiseaseDetectionPage extends TabPage {
+  const DiseaseDetectionPage({Key key, @required String pageTitle})
+      : super(key: key, pageTitle: pageTitle);
+
   @override
   _DiseaseDetectionPageState createState() => _DiseaseDetectionPageState();
 }
 
-class _DiseaseDetectionPageState extends State<DiseaseDetectionPage> {
+class _DiseaseDetectionPageState extends TabPageState<DiseaseDetectionPage> {
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      child: Center(
-        child: Text("Hello"),
-      ),
-    );
+    return super.build(context);
   }
 }

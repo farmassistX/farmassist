@@ -5,10 +5,10 @@ import 'package:farmassist/ui/bottom_navigation_bar/tab_icon_data.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({Key key, this.tabIconsList, this.changeIndex})
+  const BottomNavBar({Key key, this.tabIconsList, this.onTap})
       : super(key: key);
 
-  final Function(int index) changeIndex;
+  final Function(int index) onTap;
   final List<TabIconData> tabIconsList;
 
   @override
@@ -88,7 +88,7 @@ class _BottomNavBarState extends State<BottomNavBar>
                 tabIconData: widget.tabIconsList[i],
                 removeAllSelect: () {
                   setRemoveAllSelection(widget.tabIconsList[i]);
-                  widget.changeIndex(i);
+                  widget.onTap(i);
                 }),
           ),
           Expanded(

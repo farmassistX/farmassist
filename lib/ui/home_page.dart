@@ -17,20 +17,28 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<TabIconData> tabIconsList = TabIconData.tabIconsList;
-
-  Widget tabBody = Container(
-    color: AppTheme.background,
-  );
+  List<TabIconData> _tabIconsList = TabIconData.tabIconsList;
+  List<Widget> _tabList = [
+    FarmManagementPage(pageTitle: 'Farm Management'),
+    IoTMonitoringPage(pageTitle: 'IoT Monitoring'),
+    DiseaseDetectionPage(pageTitle: 'Plant Disease Detection'),
+    UserProfilePage(pageTitle: 'My Profile'),
+  ];
+  PageController _pageController = PageController();
 
   @override
   void initState() {
-    tabIconsList.forEach((TabIconData tab) {
+    _tabIconsList.forEach((TabIconData tab) {
       tab.isSelected = false;
     });
-    tabIconsList[0].isSelected = true;
-    tabBody = FarmManagementPage();
+    _tabIconsList[0].isSelected = true;
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -39,67 +47,28 @@ class _HomePageState extends State<HomePage> {
       color: AppTheme.background,
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: FutureBuilder<bool>(
-          future: getData(),
-          builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-            if (!snapshot.hasData) {
-              return const SizedBox();
-            } else {
-              return Stack(
-                children: <Widget>[
-                  tabBody,
-                  bottomNavBar(),
-                ],
-              );
-            }
-          },
+        body: Stack(
+          children: <Widget>[
+            PageView(
+              physics: NeverScrollableScrollPhysics(),
+              controller: _pageController,
+              children: _tabList,
+            ),
+            Column(
+              children: <Widget>[
+                const Expanded(
+                  child: SizedBox(),
+                ),
+                BottomNavBar(
+                    tabIconsList: _tabIconsList,
+                    onTap: (int i) {
+                      _pageController.jumpToPage(i);
+                    }),
+              ],
+            ),
+          ],
         ),
       ),
-    );
-  }
-
-  Future<bool> getData() async {
-    await Future<dynamic>.delayed(const Duration(milliseconds: 200));
-    return true;
-  }
-
-  Widget bottomNavBar() {
-    return Column(
-      children: <Widget>[
-        const Expanded(
-          child: SizedBox(),
-        ),
-        BottomNavBar(
-          tabIconsList: tabIconsList,
-          changeIndex: (int index) {
-            if (!mounted) return;
-            switch (index) {
-              case 0:
-                setState(() {
-                  tabBody = FarmManagementPage();
-                });
-                break;
-              case 1:
-                setState(() {
-                  tabBody = IoTMonitoringPage();
-                });
-                break;
-              case 2:
-                setState(() {
-                  tabBody = DiseaseDetectionPage();
-                });
-                break;
-              case 3:
-                setState(() {
-                  tabBody = UserProfilePage();
-                });
-                break;
-              default:
-                break;
-            }
-          },
-        ),
-      ],
     );
   }
 }

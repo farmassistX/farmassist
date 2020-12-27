@@ -1,19 +1,22 @@
+import 'package:farmassist/ui/widgets/tab_page.dart';
 import 'package:flutter/material.dart';
 
-class FarmManagementPage extends StatefulWidget {
+class FarmManagementPage extends TabPage {
+  const FarmManagementPage({Key key, @required String pageTitle})
+      : super(key: key, pageTitle: pageTitle);
+
   @override
-  _FarmManagementPageState createState() => _FarmManagementPageState();
+  _FarmManagementState createState() => _FarmManagementState();
 }
 
-class _FarmManagementPageState extends State<FarmManagementPage> {
+class _FarmManagementState extends TabPageState<FarmManagementPage> {
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      child: Center(
-        child: Text("Home"),
-      ),
-    );
+    return super.build(context);
   }
 }
