@@ -30,7 +30,6 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   Future<void> logInWithCredentials() async {
-    if (!state.status.isValidated) return;
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     try {
       await _authenticationRepository.logInWithEmailAndPassword(

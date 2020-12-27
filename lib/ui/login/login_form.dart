@@ -1,7 +1,7 @@
 import 'package:farmassist/bloc/login/login_cubit.dart';
 import 'package:farmassist/ui/sign_up/sign_up_page.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:formz/formz.dart';
 
@@ -81,7 +81,6 @@ class _PasswordInput extends StatelessWidget {
           decoration: InputDecoration(
             labelText: 'Password',
             helperText: '',
-            errorText: state.password.invalid ? 'Invalid password' : null,
           ),
         );
       },
@@ -104,9 +103,8 @@ class _LoginButton extends StatelessWidget {
                   borderRadius: BorderRadius.circular(30.0),
                 ),
                 color: const Color(0xFFFFD600),
-                onPressed: state.status.isValidated
-                    ? () => context.read<LoginCubit>().logInWithCredentials()
-                    : null,
+                onPressed: () =>
+                    context.read<LoginCubit>().logInWithCredentials(),
               );
       },
     );
