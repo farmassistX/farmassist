@@ -71,7 +71,6 @@ class _HomePageState extends State<HomePage> {
         ),
         BottomNavBar(
           tabIconsList: tabIconsList,
-          addClick: () {},
           changeIndex: (int index) {
             if (!mounted) return;
             switch (index) {
