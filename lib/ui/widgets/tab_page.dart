@@ -36,7 +36,7 @@ class TabPageState<T extends TabPage> extends State<T>
         backgroundColor: Colors.transparent,
         body: Stack(
           children: <Widget>[
-            _buildTabListView(),
+            buildTabListView(),
             TabAppBar(
               scrollController: _scrollController,
               title: widget.pageTitle,
@@ -50,7 +50,7 @@ class TabPageState<T extends TabPage> extends State<T>
     );
   }
 
-  Widget _buildTabListView() {
+  Widget buildTabListView() {
     return ListView.builder(
       controller: _scrollController,
       padding: EdgeInsets.only(

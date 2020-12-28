@@ -11,11 +11,6 @@ class UserProfilePage extends TabPage {
 
 class _UserProfilePagePageState extends TabPageState<UserProfilePage> {
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return super.build(context);
   }

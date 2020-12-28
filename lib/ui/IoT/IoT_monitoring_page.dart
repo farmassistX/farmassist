@@ -11,10 +11,12 @@ class IoTMonitoringPage extends TabPage {
 
 class _IoTMonitoringPageState extends TabPageState<IoTMonitoringPage> {
   @override
-  void dispose() => super.dispose();
-
-  @override
   Widget build(BuildContext context) {
     return super.build(context);
+  }
+
+  @override
+  Widget buildTabListView() {
+    return super.buildTabListView();
   }
 }

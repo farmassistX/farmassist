@@ -11,12 +11,12 @@ class FarmManagementPage extends TabPage {
 
 class _FarmManagementState extends TabPageState<FarmManagementPage> {
   @override
-  void dispose() {
-    super.dispose();
+  Widget build(BuildContext context) {
+    return super.build(context);
   }
 
   @override
-  Widget build(BuildContext context) {
-    return super.build(context);
+  Widget buildTabListView() {
+    return super.buildTabListView();
   }
 }
