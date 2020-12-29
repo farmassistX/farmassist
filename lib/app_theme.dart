@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 class AppTheme {
   AppTheme._();
 
-  static const Color background = Color(0xFFF2F3F8);
+  static const Color background = Color(0xFFEEEFF4);
   static const Color nearlyDarkGreen = Color(0xFF2EC821);
-  static const Color nearlyGreen = Color(0xFF34FF23);
+  static const Color nearlyGreen = Color(0xFF24D900);
 
   static const Color notWhite = Color(0xFFEDF0F2);
   static const Color nearlyWhite = Color(0xFFFEFEFE);
@@ -76,8 +76,8 @@ class AppTheme {
 
   static const TextStyle bodyText1 = TextStyle(
     fontFamily: fontName,
-    fontWeight: FontWeight.w400,
-    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    fontSize: 14,
     letterSpacing: -0.05,
     color: darkText,
   );
@@ -88,5 +88,49 @@ class AppTheme {
     fontSize: 12,
     letterSpacing: 0.2,
     color: lightText,
+  );
+
+  static const AppBarTheme appBarTheme = AppBarTheme(
+    color: white,
+    textTheme: textTheme,
+  );
+
+  static InputDecorationTheme inputDecorationTheme = InputDecorationTheme(
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(32.0),
+      borderSide: BorderSide(
+        width: 0.0,
+        style: BorderStyle.none,
+      ),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(32.0),
+      borderSide: BorderSide(
+        width: 2.0,
+        color: Colors.red,
+      ),
+    ),
+    focusedErrorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(32.0),
+      borderSide: BorderSide(
+        width: 2.0,
+        color: Colors.red,
+      ),
+    ),
+    filled: true,
+    fillColor: white,
+    errorMaxLines: 3,
+    labelStyle: TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: 14,
+      letterSpacing: 0.2,
+      color: lightText,
+    ),
+    errorStyle: TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: 14,
+      letterSpacing: 0.2,
+      color: Colors.red,
+    ),
   );
 }
