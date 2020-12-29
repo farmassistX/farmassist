@@ -1,12 +1,16 @@
 import 'package:farmassist/app_theme.dart';
-import 'package:farmassist/bloc/authentication/authentication.dart';
-import 'package:farmassist/data/authentication/authentication_repository.dart';
+import 'package:farmassist/ui/farm/news/bloc/nBloc.dart';
+import 'package:farmassist/ui/farm/news/bloc/nEvent.dart';
+import 'package:farmassist/ui/farm/news_details/bloc/dBloc.dart';
 import 'package:farmassist/ui/home_page.dart';
 import 'package:farmassist/ui/login/login_page.dart';
 import 'package:farmassist/ui/splash_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'bloc/authentication/bloc/authentication_bloc.dart';
+import 'data/authentication/repositories/authentication_repository.dart';
+import 'data/farm/resources/repository.dart';
 
 class App extends StatelessWidget {
   const App({
@@ -19,22 +23,22 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-      statusBarBrightness: Brightness.dark,
-      systemNavigationBarColor: Colors.white,
-      systemNavigationBarDividerColor: Colors.grey,
-      systemNavigationBarIconBrightness: Brightness.dark,
-    ));
-
-    return RepositoryProvider.value(
-      value: authenticationRepository,
-      child: BlocProvider(
-        create: (_) => AuthenticationBloc(
-          authenticationRepository: authenticationRepository,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<NewsBloc>(
+          create: (context) =>
+              NewsBloc(repository: Repository())..add(Fetch(type: 'Science')),
         ),
-        child: AppView(),
+        BlocProvider<DetailBloc>(create: (context) => DetailBloc(null)),
+      ],
+      child: RepositoryProvider.value(
+        value: authenticationRepository,
+        child: BlocProvider(
+          create: (_) => AuthenticationBloc(
+            authenticationRepository: authenticationRepository,
+          ),
+          child: AppView(),
+        ),
       ),
     );
   }
@@ -56,11 +60,13 @@ class _AppViewState extends State<AppView> {
       title: 'Farmassist',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: AppTheme.nearlyGreen,
-        appBarTheme: AppTheme.appBarTheme,
-        scaffoldBackgroundColor: AppTheme.background,
+        primarySwatch: Colors.green,
         textTheme: AppTheme.textTheme,
-        inputDecorationTheme: AppTheme.inputDecorationTheme,
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
       ),
       navigatorKey: _navigatorKey,
       builder: (context, child) {
