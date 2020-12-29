@@ -110,7 +110,7 @@ class _LoginButton extends StatelessWidget {
                 width: 200,
                 child: RaisedButton(
                   key: const Key('loginForm_continue_raisedButton'),
-                  child: const Text('LOGIN', style: AppTheme.bodyText1),
+                  child: const Text('LOG IN', style: AppTheme.bodyText1),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
                   ),
@@ -120,6 +120,25 @@ class _LoginButton extends StatelessWidget {
                 ),
               );
       },
+    );
+  }
+}
+
+class _SignUpButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 45,
+      width: 200,
+      child: RaisedButton(
+        key: const Key('loginForm_createAccount_flatButton'),
+        child: const Text('CREATE ACCOUNT', style: AppTheme.bodyText1),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        color: const Color(0xFFFFD600),
+        onPressed: () => Navigator.of(context).push<void>(SignUpPage.route()),
+      ),
     );
   }
 }
@@ -142,25 +161,6 @@ class _GoogleLoginButton extends StatelessWidget {
         ),
         color: AppTheme.white,
         onPressed: () => context.read<LoginCubit>().logInWithGoogle(),
-      ),
-    );
-  }
-}
-
-class _SignUpButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 45,
-      width: 200,
-      child: RaisedButton(
-        key: const Key('loginForm_createAccount_flatButton'),
-        child: const Text('CREATE ACCOUNT', style: AppTheme.bodyText1),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.0),
-        ),
-        color: const Color(0xFFFFD600),
-        onPressed: () => Navigator.of(context).push<void>(SignUpPage.route()),
       ),
     );
   }
