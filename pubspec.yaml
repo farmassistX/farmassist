@@ -19,6 +19,11 @@ dependencies:
   formz: "^0.3.0"
   google_sign_in: "^4.5.4"
   pedantic: "^1.9.0"
+  getwidget: "^1.2.4"
+  page_transition: "^1.1.7+5"
+  http:
+  intl: ^0.16.1
+  cached_network_image: ^2.2.0+1
 
 dev_dependencies:
   flutter_test:
