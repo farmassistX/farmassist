@@ -1,3 +1,4 @@
+import 'package:farmassist/app_theme.dart';
 import 'package:flutter/material.dart';
 
 const _avatarSize = 48.0;
@@ -10,6 +11,8 @@ class Avatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
+      backgroundColor: AppTheme.white,
+      foregroundColor: AppTheme.nearlyGreen,
       radius: _avatarSize,
       backgroundImage: photo != null ? NetworkImage(photo) : null,
       child: photo == null
