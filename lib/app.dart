@@ -1,7 +1,4 @@
 import 'package:farmassist/app_theme.dart';
-import 'package:farmassist/ui/farm/news/bloc/nBloc.dart';
-import 'package:farmassist/ui/farm/news/bloc/nEvent.dart';
-import 'package:farmassist/ui/farm/news_details/bloc/dBloc.dart';
 import 'package:farmassist/ui/home_page.dart';
 import 'package:farmassist/ui/login/login_page.dart';
 import 'package:farmassist/ui/splash_page.dart';
@@ -10,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'bloc/authentication/bloc/authentication_bloc.dart';
 import 'data/authentication/repositories/authentication_repository.dart';
-import 'data/farm/resources/repository.dart';
 
 class App extends StatelessWidget {
   const App({
@@ -23,22 +19,13 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-        providers: [
-          BlocProvider<NewsBloc>(
-            create: (context) =>
-            NewsBloc(repository: Repository())..add(Fetch(type: 'Science')),
-          ),
-          BlocProvider<DetailBloc>(create: (context) => DetailBloc(null)),
-        ],
-        child: RepositoryProvider.value(
-          value: authenticationRepository,
-          child: BlocProvider(
-            create: (_) => AuthenticationBloc(
-              authenticationRepository: authenticationRepository,
-            ),
-            child: AppView(),
+    return RepositoryProvider.value(
+      value: authenticationRepository,
+      child: BlocProvider(
+        create: (_) => AuthenticationBloc(
+          authenticationRepository: authenticationRepository,
         ),
+        child: AppView(),
       ),
     );
   }
