@@ -1,10 +1,10 @@
 import 'package:farmassist/data/farm/models/News.dart';
+import 'package:farmassist/ui/farm/news_details/bloc/bloc.dart';
 import 'package:farmassist/ui/widgets/news_customWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../app_theme.dart';
-import 'package:farmassist/ui/farm/news_details/bloc/bloc.dart';
 
+import '../../../../app_theme.dart';
 
 class NewsCard extends StatelessWidget {
   final Article artical;
@@ -56,51 +56,51 @@ class NewsCard extends StatelessWidget {
                           Container(
                               color: Theme.of(context).primaryColor,
                               child: artical.urlToImage == null ||
-                                  artical.urlToImage.isEmpty
+                                      artical.urlToImage.isEmpty
                                   ? Container()
                                   : customImage(artical.urlToImage,
-                                  fit: BoxFit.cover)),
+                                      fit: BoxFit.cover)),
                           isVideoNews ? _playWidget(context) : Container()
                         ],
                       ))),
               SizedBox(width: 10),
               Expanded(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  SizedBox(),
+                  Container(
+                    height: 52,
+                    child: Text(
+                      artical.title,
+                      style: Theme.of(context).textTheme.body1,
+                      overflow: TextOverflow.fade,
+                    ),
+                  ),
+                  Row(
                     children: <Widget>[
-                      SizedBox(),
                       Container(
-                        height: 52,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: Theme.of(context).primaryColor,
+                        ),
                         child: Text(
-                          artical.title,
-                          style: Theme.of(context).textTheme.body1,
-                          overflow: TextOverflow.fade,
+                          '$type',
+                          style: AppTheme.headline6.copyWith(
+                              color: Theme.of(context).colorScheme.onPrimary),
                         ),
                       ),
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Theme.of(context).primaryColor,
-                            ),
-                            child: Text(
-                              '$type',
-                              style: AppTheme.headline6.copyWith(
-                                  color: Theme.of(context).colorScheme.onPrimary),
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(left: 10),
-                            child: Text(artical.getDateOnly(),
-                                style: AppTheme.subtitle2),
-                          ),
-                        ],
-                      )
+                      Container(
+                        padding: EdgeInsets.only(left: 10),
+                        child: Text(artical.getDateOnly(),
+                            style: AppTheme.subtitle2),
+                      ),
                     ],
-                  ))
+                  )
+                ],
+              ))
             ],
           ),
         ));

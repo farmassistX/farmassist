@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:farmassist/data/farm/models/News.dart';
 
-abstract class NewsDetailEvent extends Equatable{
+abstract class NewsDetailEvent extends Equatable {
   const NewsDetailEvent();
 
   @override

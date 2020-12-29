@@ -1,11 +1,11 @@
 import 'package:farmassist/data/farm/models/News.dart';
-import 'package:farmassist/ui/widgets/news_customWidget.dart';
 import 'package:farmassist/ui/farm/news/bloc/bloc.dart';
+import 'package:farmassist/ui/widgets/news_customWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../app_theme.dart';
 import 'bloc/bloc.dart';
-
 
 class NewsDetailPage extends StatelessWidget {
   Widget _headerNews(BuildContext context, Article article) {
@@ -62,34 +62,34 @@ class NewsDetailPage extends StatelessWidget {
         ),
         SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(
+                height: 10,
+              ),
+              Text(article.title, style: AppTheme.headline4),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
                 children: <Widget>[
+                  Text(article.author ?? '', style: AppTheme.headline4),
                   SizedBox(
-                    height: 10,
+                    width: 10,
                   ),
-                  Text(article.title, style: AppTheme.headline4),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Text(article.author ?? '', style: AppTheme.headline4),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(article.getTime(), style: AppTheme.headline4),
-                    ],
-                  ),
-                  Divider(
-                    height: 20,
-                    thickness: 1,
-                  ),
-                  Text(article.content ?? '', style: AppTheme.headline4)
+                  Text(article.getTime(), style: AppTheme.headline4),
                 ],
               ),
-            ))
+              Divider(
+                height: 20,
+                thickness: 1,
+              ),
+              Text(article.content ?? '', style: AppTheme.headline4)
+            ],
+          ),
+        ))
       ],
     );
   }

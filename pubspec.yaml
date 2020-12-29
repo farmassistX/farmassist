@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   bloc: "^6.1.0"
+  cached_network_image: "^2.2.0+1"
   cloud_firestore: "^0.14.4"
   equatable: "^1.2.3"
   firebase_core: "^0.5.3"
@@ -18,12 +19,11 @@ dependencies:
   font_awesome_flutter: "^8.4.0"
   formz: "^0.3.0"
   google_sign_in: "^4.5.4"
-  pedantic: "^1.9.0"
   getwidget: "^1.2.4"
+  http: "0.12.2"
+  intl: "^0.16.1"
   page_transition: "^1.1.7+5"
-  http:
-  intl: ^0.16.1
-  cached_network_image: ^2.2.0+1
+  pedantic: "^1.9.0"
 
 dev_dependencies:
   flutter_test:

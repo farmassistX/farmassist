@@ -1,6 +1,7 @@
+import 'package:farmassist/ui/farm/farm_menu.dart';
 import 'package:farmassist/ui/widgets/tab_page.dart';
 import 'package:flutter/material.dart';
-import 'package:farmassist/ui/farm/farm_menu.dart';
+
 class FarmManagementPage extends TabPage {
   const FarmManagementPage({Key key, @required String pageTitle})
       : super(key: key, pageTitle: pageTitle);
@@ -10,7 +11,6 @@ class FarmManagementPage extends TabPage {
 }
 
 class _FarmManagementState extends TabPageState<FarmManagementPage> {
-
   @override
   void initState() {
     tabListView.add(FarmMenu());
@@ -27,5 +27,3 @@ class _FarmManagementState extends TabPageState<FarmManagementPage> {
     return super.buildTabListView();
   }
 }
-
-

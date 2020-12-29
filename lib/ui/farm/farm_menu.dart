@@ -1,10 +1,10 @@
+import 'package:farmassist/ui/farm/news/news_home.dart';
 import 'package:farmassist/ui/farm/planting/planting_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/colors/gf_color.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:getwidget/components/list_tile/gf_list_tile.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:farmassist/ui/farm/news/news_home.dart';
 
 class FarmMenu extends StatefulWidget {
   @override
@@ -18,55 +18,61 @@ class _FarmMenuState extends State<FarmMenu> {
       child: Column(
         children: [
           GFListTile(
-            avatar:GFAvatar(
+            avatar: GFAvatar(
               backgroundImage: AssetImage('assets/images/manage_planting.png'),
               backgroundColor: GFColors.TRANSPARENT,
             ),
-            titleText:'Planting',
-            subtitleText:'Store and view planting related activities.',
+            titleText: 'Planting',
+            subtitleText: 'Store and view planting related activities.',
             color: Colors.blueGrey[100],
             icon: Icon(Icons.chevron_right),
             onTap: () {
               Navigator.push(
-                context, PageTransition(type: PageTransitionType.leftToRightWithFade, child: PlantingMenu()),
+                context,
+                PageTransition(
+                    type: PageTransitionType.leftToRightWithFade,
+                    child: PlantingMenu()),
               );
             },
           ),
           GFListTile(
-              avatar:GFAvatar(
+              avatar: GFAvatar(
                 backgroundImage: AssetImage('assets/images/manage_harvest.png'),
                 backgroundColor: GFColors.TRANSPARENT,
               ),
-              titleText:'Harvesting',
+              titleText: 'Harvesting',
               color: Colors.blueGrey[100],
-              subtitleText:'Store and view harvesting related activities.',
-              icon: Icon(Icons.chevron_right)
+              subtitleText: 'Store and view harvesting related activities.',
+              icon: Icon(Icons.chevron_right)),
+          GFListTile(
+            avatar: GFAvatar(
+              backgroundImage: AssetImage('assets/images/manage_news.png'),
+              backgroundColor: GFColors.TRANSPARENT,
+            ),
+            titleText: 'View News',
+            color: Colors.blueGrey[100],
+            subtitleText: 'Read the latest news about agriculture here.',
+            icon: Icon(Icons.chevron_right),
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                    type: PageTransitionType.leftToRightWithFade,
+                    child: HomePage()),
+              );
+            },
           ),
           GFListTile(
-              avatar:GFAvatar(
-                backgroundImage: AssetImage('assets/images/manage_news.png'),
+              avatar: GFAvatar(
+                backgroundImage:
+                    AssetImage('assets/images/manage_statistics.png'),
                 backgroundColor: GFColors.TRANSPARENT,
               ),
-              titleText:'View News',
+              titleText: 'View Statistics',
+              subtitleText:
+                  'Numbers based on your planting and harvesting history.',
               color: Colors.blueGrey[100],
-              subtitleText:'Read the latest news about agriculture here.',
-              icon: Icon(Icons.chevron_right),
-              onTap: () {
-                Navigator.push(
-                  context, PageTransition(type: PageTransitionType.leftToRightWithFade, child: HomePage()),
-                );
-              },
-          ),
-          GFListTile(
-              avatar:GFAvatar(
-                backgroundImage: AssetImage('assets/images/manage_statistics.png'),
-                backgroundColor: GFColors.TRANSPARENT,
-              ),
-              titleText:'View Statistics',
-              subtitleText:'Numbers based on your planting and harvesting history.',
-              color: Colors.blueGrey[100],
-              icon: Icon(Icons.chevron_right)
-          ),
+              icon: Icon(Icons.chevron_right)),
         ],
       ),
     );

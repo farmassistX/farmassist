@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 Widget customText(String msg,
     {TextStyle style,
-      TextAlign textAlign = TextAlign.justify,
-      overflow = TextOverflow.clip,
-      BuildContext context}) {
+    TextAlign textAlign = TextAlign.justify,
+    overflow = TextOverflow.clip,
+    BuildContext context}) {
   if (msg == null) {
     return SizedBox(
       height: 0,

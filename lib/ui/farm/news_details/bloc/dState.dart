@@ -1,8 +1,7 @@
-import 'package:farmassist/data/farm/models/News.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
+import 'package:farmassist/data/farm/models/News.dart';
 
-abstract class DetailState extends Equatable{
+abstract class DetailState extends Equatable {
   const DetailState();
 
   @override
