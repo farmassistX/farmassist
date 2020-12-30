@@ -9,47 +9,46 @@ import 'package:farmassist/ui/home_page.dart';
 import 'package:farmassist/ui/login/login_page.dart';
 import 'package:farmassist/ui/splash_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class App extends StatelessWidget {
-  const App({
-    Key key,
-    @required this.authenticationRepository,
-  })  : assert(authenticationRepository != null),
-        super(key: key);
+  App({Key key}) : super(key: key);
 
-  final AuthenticationRepository authenticationRepository;
+  final AuthenticationRepository _authenticationRepository =
+      AuthenticationRepository();
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-      statusBarBrightness: Brightness.dark,
-      systemNavigationBarColor: Colors.white,
-      systemNavigationBarDividerColor: Colors.grey,
-      systemNavigationBarIconBrightness: Brightness.dark,
-    ));
-
     return MultiBlocProvider(
-      providers: [
-        BlocProvider<NewsBloc>(
-          create: (context) =>
-              NewsBloc(repository: Repository())..add(Fetch(type: 'Science')),
-        ),
-        BlocProvider<DetailBloc>(create: (context) => DetailBloc(null)),
-      ],
-      child: RepositoryProvider.value(
-        value: authenticationRepository,
-        child: BlocProvider(
-          create: (_) => AuthenticationBloc(
-            authenticationRepository: authenticationRepository,
+        providers: [
+          BlocProvider<AuthenticationBloc>(
+            create: (context) {
+              return AuthenticationBloc(
+                authenticationRepository: _authenticationRepository,
+              );
+            },
           ),
+          BlocProvider<NewsBloc>(
+            create: (context) {
+              return NewsBloc(
+                repository: Repository(),
+              )..add(Fetch(type: 'Science'));
+            },
+          ),
+          BlocProvider<DetailBloc>(
+            create: (context) {
+              return DetailBloc(null);
+            },
+          ),
+        ],
+        child: MultiRepositoryProvider(
+          providers: [
+            RepositoryProvider<AuthenticationRepository>.value(
+              value: _authenticationRepository,
+            ),
+          ],
           child: AppView(),
-        ),
-      ),
-    );
+        ));
   }
 }
 

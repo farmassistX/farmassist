@@ -1,13 +1,15 @@
 import 'package:farmassist/app_theme.dart';
+import 'package:farmassist/data/user/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserInfoField extends StatelessWidget {
-  const UserInfoField({Key key, this.name, this.icon, this.value})
+  const UserInfoField({Key key, this.name, this.icon, this.field})
       : super(key: key);
 
   final String name;
   final IconData icon;
-  final String value;
+  final String field;
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +41,7 @@ class UserInfoField extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 8.0, right: 12.0),
                       child: Icon(icon),
                     ),
-                    Expanded(
-                      child: Text(
-                        value,
-                        style: AppTheme.headline6,
-                      ),
-                    ),
+                    Expanded(child: _buildFieldValue(context, field)),
                   ],
                 ),
               ),
@@ -53,5 +50,19 @@ class UserInfoField extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Text _buildFieldValue(BuildContext context, String field) {
+    if (field == 'displayName') {
+      return Text(
+        context.select((UserRepository u) => u.currentUser.displayName),
+        style: AppTheme.headline6,
+      );
+    } else {
+      return Text(
+        context.select((UserRepository u) => u.currentUser.email),
+        style: AppTheme.headline6,
+      );
+    }
   }
 }

@@ -1,7 +1,8 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farmassist/data/authentication/models/user.dart';
-import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
 
@@ -19,30 +20,46 @@ class LogOutFailure implements Exception {}
 
 class AuthenticationRepository {
   AuthenticationRepository({
-    firebase_auth.FirebaseAuth firebaseAuth,
+    FirebaseAuth firebaseAuth,
     GoogleSignIn googleSignIn,
-  })  : _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance,
+  })  : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
         _googleSignIn = googleSignIn ?? GoogleSignIn.standard();
 
-  final firebase_auth.FirebaseAuth _firebaseAuth;
+  final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
 
-  Stream<User> get user {
+  Stream<AppUser> get appUser {
     return _firebaseAuth.authStateChanges().map((firebaseUser) {
-      return firebaseUser == null ? User.empty : firebaseUser.toUser;
+      return firebaseUser == null
+          ? AppUser.empty
+          : AppUser(
+              id: firebaseUser.uid,
+              email: firebaseUser.email,
+              name: firebaseUser.displayName,
+              photo: firebaseUser.photoURL,
+            );
     });
   }
 
   Future<void> signUp({
+    @required String name,
     @required String email,
     @required String password,
   }) async {
-    assert(email != null && password != null);
+    assert(name != null && email != null && password != null);
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
+      UserCredential userCredential =
+          await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+      User user = userCredential.user;
+      await user.updateProfile(displayName: name);
+      await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+        'id': user.uid,
+        'email': email,
+        'displayName': name,
+      });
     } on Exception {
       throw SignUpFailure();
     }
@@ -52,7 +69,7 @@ class AuthenticationRepository {
     try {
       final googleUser = await _googleSignIn.signIn();
       final googleAuth = await googleUser.authentication;
-      final credential = firebase_auth.GoogleAuthProvider.credential(
+      final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
@@ -86,11 +103,5 @@ class AuthenticationRepository {
     } on Exception {
       throw LogOutFailure();
     }
-  }
-}
-
-extension on firebase_auth.User {
-  User get toUser {
-    return User(id: uid, email: email, name: displayName, photo: photoURL);
   }
 }

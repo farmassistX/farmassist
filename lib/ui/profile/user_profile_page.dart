@@ -21,12 +21,12 @@ class _UserProfilePagePageState extends TabPageState<UserProfilePage> {
     tabListView.add(UserInfoField(
       name: 'Name',
       icon: Icons.account_circle,
-      value: 'Sysadmin',
+      field: 'displayName',
     ));
     tabListView.add(UserInfoField(
       name: 'Email',
       icon: Icons.email,
-      value: 'system123@gmail.com',
+      field: 'email',
     ));
     tabListView.add(_LogOutButton());
     super.initState();

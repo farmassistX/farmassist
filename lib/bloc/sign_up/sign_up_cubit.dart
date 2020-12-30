@@ -78,6 +78,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     try {
       await _authenticationRepository.signUp(
+        name: state.name.value,
         email: state.email.value,
         password: state.password.value,
       );

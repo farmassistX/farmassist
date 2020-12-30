@@ -17,13 +17,13 @@ class AuthenticationBloc
   })  : assert(authenticationRepository != null),
         _authenticationRepository = authenticationRepository,
         super(const AuthenticationState.unknown()) {
-    _userSubscription = _authenticationRepository.user.listen(
-      (user) => add(AuthenticationUserChanged(user)),
+    _appUserSubscription = _authenticationRepository.appUser.listen(
+      (appUser) => add(AuthenticationUserChanged(appUser)),
     );
   }
 
   final AuthenticationRepository _authenticationRepository;
-  StreamSubscription<User> _userSubscription;
+  StreamSubscription<AppUser> _appUserSubscription;
 
   @override
   Stream<AuthenticationState> mapEventToState(
@@ -38,15 +38,15 @@ class AuthenticationBloc
 
   @override
   Future<void> close() {
-    _userSubscription?.cancel();
+    _appUserSubscription?.cancel();
     return super.close();
   }
 
   AuthenticationState _mapAuthenticationUserChangedToState(
     AuthenticationUserChanged event,
   ) {
-    return event.user != User.empty
-        ? AuthenticationState.authenticated(event.user)
+    return event.appUser != AppUser.empty
+        ? AuthenticationState.authenticated(event.appUser)
         : const AuthenticationState.unauthenticated();
   }
 }
