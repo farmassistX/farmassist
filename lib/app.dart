@@ -20,35 +20,26 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthenticationBloc>(
+            create: (_) => AuthenticationBloc(
+                authenticationRepository: _authenticationRepository)),
+        BlocProvider<NewsBloc>(
+            create: (_) => NewsBloc(repository: Repository())
+              ..add(Fetch(type: 'Science'))),
+        BlocProvider<DetailBloc>(
+          create: (_) => DetailBloc(null),
+        ),
+      ],
+      child: MultiRepositoryProvider(
         providers: [
-          BlocProvider<AuthenticationBloc>(
-            create: (context) {
-              return AuthenticationBloc(
-                authenticationRepository: _authenticationRepository,
-              );
-            },
-          ),
-          BlocProvider<NewsBloc>(
-            create: (context) {
-              return NewsBloc(
-                repository: Repository(),
-              )..add(Fetch(type: 'Science'));
-            },
-          ),
-          BlocProvider<DetailBloc>(
-            create: (context) {
-              return DetailBloc(null);
-            },
+          RepositoryProvider<AuthenticationRepository>.value(
+            value: _authenticationRepository,
           ),
         ],
-        child: MultiRepositoryProvider(
-          providers: [
-            RepositoryProvider<AuthenticationRepository>.value(
-              value: _authenticationRepository,
-            ),
-          ],
-          child: AppView(),
-        ));
+        child: AppView(),
+      ),
+    );
   }
 }
 
@@ -69,6 +60,7 @@ class _AppViewState extends State<AppView> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: AppTheme.nearlyGreen,
+        accentColor: AppTheme.nearlyGreen,
         appBarTheme: AppTheme.appBarTheme,
         scaffoldBackgroundColor: AppTheme.background,
         textTheme: AppTheme.textTheme,
