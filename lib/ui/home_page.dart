@@ -1,5 +1,4 @@
 import 'package:farmassist/app_theme.dart';
-import 'package:farmassist/data/user/repositories/user_repository.dart';
 import 'package:farmassist/ui/IoT/IoT_monitoring_page.dart';
 import 'package:farmassist/ui/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:farmassist/ui/bottom_navigation_bar/tab_icon_data.dart';
@@ -7,7 +6,6 @@ import 'package:farmassist/ui/diseases/disease_detection_page.dart';
 import 'package:farmassist/ui/farm/farm_management_page.dart';
 import 'package:farmassist/ui/profile/user_profile_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
   static Route route() {
@@ -45,33 +43,31 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider<UserRepository>(
-      create: (context) => UserRepository(),
-      child: Container(
-        color: AppTheme.background,
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          body: Stack(
-            children: <Widget>[
-              PageView(
-                physics: NeverScrollableScrollPhysics(),
-                controller: _pageController,
-                children: _tabList,
-              ),
-              Column(
-                children: <Widget>[
-                  const Expanded(
-                    child: SizedBox(),
-                  ),
-                  BottomNavBar(
-                      tabIconsList: _tabIconsList,
-                      onTap: (int i) {
-                        _pageController.jumpToPage(i);
-                      }),
-                ],
-              ),
-            ],
-          ),
+    return Container(
+      color: AppTheme.background,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Stack(
+          children: <Widget>[
+            PageView(
+              physics: NeverScrollableScrollPhysics(),
+              controller: _pageController,
+              children: _tabList,
+            ),
+            Column(
+              children: <Widget>[
+                const Expanded(
+                  child: SizedBox(),
+                ),
+                BottomNavBar(
+                  tabIconsList: _tabIconsList,
+                  onTap: (int i) {
+                    _pageController.jumpToPage(i);
+                  },
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
