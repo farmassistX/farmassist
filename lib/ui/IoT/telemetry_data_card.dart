@@ -110,7 +110,8 @@ class TelemetryDataCard extends StatelessWidget {
                               reloadTime: reloadTime,
                             ),
                           ),
-                          Expanded(
+                          SizedBox(
+                            width: 90,
                             child: Text(
                               cardItem.unit,
                               textAlign: TextAlign.left,

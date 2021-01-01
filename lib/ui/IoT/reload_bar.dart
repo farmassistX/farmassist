@@ -8,7 +8,7 @@ class ReloadBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Padding(
-        padding: const EdgeInsets.only(left: 24.0, right: 24.0),
+        padding: const EdgeInsets.only(top: 10.0, left: 24.0, right: 24.0),
         child: Row(
           children: <Widget>[
             SizedBox(

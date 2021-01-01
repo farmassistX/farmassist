@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   List<Widget> _tabList = [
     FarmManagementPage(pageTitle: 'Farm Management'),
     IoTMonitoringPage(pageTitle: 'IoT Monitoring'),
-    DiseaseDetectionPage(pageTitle: 'Plant Disease Detection'),
+    DiseaseDetectionPage(pageTitle: 'Disease Detection'),
     UserProfilePage(pageTitle: 'My Profile'),
   ];
   PageController _pageController = PageController();
