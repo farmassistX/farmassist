@@ -13,17 +13,19 @@ dependencies:
   cached_network_image: "^2.2.0+1"
   cloud_firestore: "^0.14.4"
   equatable: "^1.2.3"
-  firebase_core: "^0.5.3"
   firebase_auth: "^0.18.4+1"
+  firebase_core: "^0.5.3"
+  firebase_database: "^4.4.0"
   flutter_bloc: "^6.1.0"
   font_awesome_flutter: "^8.4.0"
   formz: "^0.3.0"
-  google_sign_in: "^4.5.4"
   getwidget: "^1.2.4"
+  google_sign_in: "^4.5.4"
   http: "0.12.2"
   intl: "^0.16.1"
   page_transition: "^1.1.7+5"
   pedantic: "^1.9.0"
+  provider: "^4.0.0"
 
 dev_dependencies:
   flutter_test:

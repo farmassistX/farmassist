@@ -17,6 +17,7 @@ class TabPageState<T extends TabPage> extends State<T>
   ScrollController _scrollController = ScrollController();
 
   List<Widget> get tabListView => _tabListView;
+  ScrollController get scrollController => _scrollController;
 
   @override
   bool get wantKeepAlive => true;

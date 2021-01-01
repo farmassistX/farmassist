@@ -8,16 +8,16 @@ class TelemetryDataCardItem {
     this.imagePath,
     this.color1,
     this.color2,
-    this.index,
+    this.data,
   });
 
-  String title;
-  String description;
-  String unit;
-  String imagePath;
-  Color color1;
-  Color color2;
-  int index;
+  final String title;
+  final String description;
+  final String unit;
+  final String imagePath;
+  final Color color1;
+  final Color color2;
+  final String data;
 
   static List<TelemetryDataCardItem> cardItems = [
     TelemetryDataCardItem(
@@ -27,7 +27,7 @@ class TelemetryDataCardItem {
       imagePath: 'assets/images/air_humidity.png',
       color1: const Color(0xFF6F56E8),
       color2: const Color(0xFF79D1FB),
-      index: 0,
+      data: "humidity",
     ),
     TelemetryDataCardItem(
       title: 'Air Temperature',
@@ -36,7 +36,7 @@ class TelemetryDataCardItem {
       imagePath: 'assets/images/air_temperature.png',
       color1: const Color(0xFF006400),
       color2: const Color(0xFF1FDF39),
-      index: 1,
+      data: "temperature",
     ),
     TelemetryDataCardItem(
       title: 'Soil Moisture',
@@ -45,7 +45,7 @@ class TelemetryDataCardItem {
       imagePath: 'assets/images/soil_moisture.png',
       color1: const Color(0xFF800000),
       color2: const Color(0xFFD2691E),
-      index: 2,
+      data: "moisture",
     ),
     TelemetryDataCardItem(
       title: 'Soil pH',
@@ -54,7 +54,7 @@ class TelemetryDataCardItem {
       imagePath: 'assets/images/soil_pH.png',
       color1: const Color(0xFFFF3F34),
       color2: const Color(0xFFFFA334),
-      index: 3,
+      data: "pH",
     ),
     TelemetryDataCardItem(
       title: 'Soil Salinity',
@@ -63,7 +63,7 @@ class TelemetryDataCardItem {
       imagePath: 'assets/images/soil_salinity.png',
       color1: const Color(0xFF9700CB),
       color2: const Color(0xFFF410D9),
-      index: 4,
+      data: "salinity",
     ),
   ];
 }
