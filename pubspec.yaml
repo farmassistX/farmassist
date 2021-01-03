@@ -16,6 +16,7 @@ dependencies:
   firebase_auth: "^0.18.4+1"
   firebase_core: "^0.5.3"
   firebase_database: "^4.4.0"
+  fl_chart: "^0.12.2"
   flutter_bloc: "^6.1.0"
   font_awesome_flutter: "^8.4.0"
   formz: "^0.3.0"
