@@ -3,6 +3,7 @@ import 'package:farmassist/data/IoT/models/telemetry_data.dart';
 import 'package:farmassist/data/IoT/repositories/telemetry_data_repository.dart';
 import 'package:farmassist/ui/IoT/reload_time.dart';
 import 'package:farmassist/ui/IoT/telemetry_data_card_item.dart';
+import 'package:farmassist/ui/IoT/telemetry_data_chart.dart';
 import 'package:farmassist/ui/IoT/telemetry_data_reading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,9 +19,9 @@ class TelemetryDataCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamProvider<TelemetryData>(
-      catchError: (_, __) => null,
       create: (context) =>
           context.read<TelemetryDataRepository>().readData(cardItem.data),
+      catchError: (_, __) => null,
       child: Stack(
         children: <Widget>[
           Padding(
@@ -94,24 +95,14 @@ class TelemetryDataCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          SizedBox(
-                            height: 30,
-                            width: 30,
-                            child: 1 == 1 // TODO: temporary dummy placeholder
-                                ? Icon(
-                                    Icons.warning_rounded,
-                                    color: AppTheme.white,
-                                    size: 30,
-                                  )
-                                : null,
-                          ),
                           Expanded(
+                            flex: 2,
                             child: TelemetryDataReading(
                               reloadTime: reloadTime,
                             ),
                           ),
-                          SizedBox(
-                            width: 90,
+                          Expanded(
+                            flex: 1,
                             child: Text(
                               cardItem.unit,
                               textAlign: TextAlign.left,
@@ -125,6 +116,30 @@ class TelemetryDataCard extends StatelessWidget {
                             ),
                           ),
                         ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: AspectRatio(
+                        aspectRatio: 1.7,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(18),
+                            color: AppTheme.white.withOpacity(0.4),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              right: 32.0,
+                              left: 32.0,
+                              top: 24,
+                              bottom: 12,
+                            ),
+                            child: TelemetryDataChart(
+                              numData: 6,
+                              cardItem: cardItem,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ],
