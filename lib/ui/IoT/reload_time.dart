@@ -6,8 +6,8 @@ class ReloadTime extends ChangeNotifier {
 
   String get reloadTime => _reloadTime;
 
-  void update() {
-    _reloadTime = DateFormat('dd-MM-yyyy HH:mm:ss').format(DateTime.now());
+  void update(DateTime timestamp) {
+    _reloadTime = DateFormat('dd-MM-yyyy HH:mm:ss').format(timestamp);
     notifyListeners();
   }
 }

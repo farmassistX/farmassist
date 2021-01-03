@@ -98,6 +98,7 @@ class TelemetryDataCard extends StatelessWidget {
                           Expanded(
                             flex: 2,
                             child: TelemetryDataReading(
+                              data: cardItem.data,
                               reloadTime: reloadTime,
                             ),
                           ),
@@ -135,6 +136,7 @@ class TelemetryDataCard extends StatelessWidget {
                               bottom: 12,
                             ),
                             child: TelemetryDataChart(
+                              data: cardItem.data,
                               numData: 6,
                               cardItem: cardItem,
                             ),

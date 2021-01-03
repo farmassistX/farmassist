@@ -7,12 +7,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class TelemetryDataChart extends StatelessWidget {
-  TelemetryDataChart({Key key, @required this.numData, @required this.cardItem})
-      : spots = LineChartSpots(numData),
+  TelemetryDataChart({
+    Key key,
+    @required this.data,
+    @required this.numData,
+    @required this.cardItem,
+  })  : spots = LineChartSpots(numData),
         bottomTitles = FixedSizedQueue(numData),
         xIndexes = Iterable<int>.generate(numData).toList(),
         super(key: key);
 
+  final String data;
   final int numData;
   final LineChartSpots spots;
   final FixedSizedQueue<String> bottomTitles;
@@ -23,9 +28,31 @@ class TelemetryDataChart extends StatelessWidget {
   Widget build(BuildContext context) {
     TelemetryData telemetryData = context.watch<TelemetryData>();
 
+    // If real-time telemetry data is not available,
     if (telemetryData == null) {
-      return Container();
-    } else {
+      // Tries to read previous telemetry data.
+      // Use Provider.of() method due to stricter restrictions imposed by
+      // context.read() method when it is called inside a build function.
+      List<TelemetryData> telemetryDataList =
+          RepositoryProvider.of<TelemetryDataRepository>(
+        context,
+        listen: false,
+      ).readPreviousReadings(data, numData);
+
+      // Returns an empty container if previous telemetry data is also not available.
+      if (telemetryDataList.length == 0) {
+        return Container();
+      }
+      // Adds previous data into line chart points.
+      else {
+        telemetryDataList.forEach((telemetryData) {
+          spots.add(telemetryData.value);
+          bottomTitles.add(DateFormat.ms().format(telemetryData.timestamp));
+        });
+      }
+    }
+    // If real-time telemetry data is available, add data into line chart points.
+    else {
       spots.add(telemetryData.value);
       bottomTitles.add(DateFormat.ms().format(telemetryData.timestamp));
     }

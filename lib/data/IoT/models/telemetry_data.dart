@@ -12,4 +12,11 @@ class TelemetryData {
       value: data.value,
     );
   }
+
+  factory TelemetryData.from(String timestamp, String value) {
+    return TelemetryData(
+      timestamp: DateTime.fromMillisecondsSinceEpoch(int.parse(timestamp)),
+      value: value,
+    );
+  }
 }
