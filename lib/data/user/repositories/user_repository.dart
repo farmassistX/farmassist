@@ -16,9 +16,15 @@ class UserRepository {
   User get currentUser => _currentUser;
   static String get uid => _uid;
 
-  Future<void> updateUser(AppUser appUser) {
-    return _userDoc.update(appUser.toMap());
+  Future<void> saveToken(String token) async {
+    await _userDoc.update({
+      'tokens': FieldValue.arrayUnion([token]),
+    });
   }
 
-  Future<void> deleteTodo() => _userDoc.delete();
+  Future<void> update(AppUser appUser) async {
+    await _userDoc.update(appUser.toMap());
+  }
+
+  Future<void> delete() => _userDoc.delete();
 }

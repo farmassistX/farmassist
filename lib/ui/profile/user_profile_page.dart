@@ -1,6 +1,5 @@
 import 'package:farmassist/app_theme.dart';
 import 'package:farmassist/bloc/authentication/authentication.dart';
-import 'package:farmassist/data/user/repositories/user_repository.dart';
 import 'package:farmassist/ui/profile/avatar.dart';
 import 'package:farmassist/ui/profile/user_info_field.dart';
 import 'package:farmassist/ui/widgets/tab_page.dart';
@@ -31,14 +30,6 @@ class _UserProfilePagePageState extends TabPageState<UserProfilePage> {
     ));
     tabListView.add(_LogOutButton());
     super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return RepositoryProvider<UserRepository>(
-      create: (_) => UserRepository(),
-      child: super.build(context),
-    );
   }
 }
 
