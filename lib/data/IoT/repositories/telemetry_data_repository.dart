@@ -22,38 +22,17 @@ class TelemetryDataRepository {
         .map((event) => TelemetryData.fromRealtimeDatabase(event.snapshot));
   }
 
-  TelemetryData readPreviousReading(String data) {
-    TelemetryData telemetryData;
-    _telemetryDb
-        .child(data)
-        .orderByKey()
-        .limitToLast(1)
-        .onChildAdded
-        .forEach((event) {
-      if (event.snapshot != null) {
-        telemetryData = TelemetryData.fromRealtimeDatabase(event.snapshot);
-      }
-    });
-    return telemetryData;
-  }
+  Future<List<TelemetryData>> readPrevReadings(String data, int num) async {
+    List<TelemetryData> dataList = List();
+    DataSnapshot snapshot =
+        await _telemetryDb.child(data).orderByKey().limitToLast(num).once();
 
-  List<TelemetryData> readPreviousReadings(String data, int num) {
-    List<TelemetryData> telemetryDataList = List();
-    _telemetryDb
-        .child(data)
-        .orderByKey()
-        .limitToLast(num)
-        .onValue
-        .forEach((event) {
-      if (event.snapshot != null && event.snapshot.value != null) {
-        Map<dynamic, dynamic> map = event.snapshot.value;
-        map = Map.fromEntries(map.entries.toList()
-          ..sort((e1, e2) => int.parse(e1.key).compareTo(int.parse(e2.key))));
-        map.forEach((key, value) {
-          telemetryDataList.add(TelemetryData.from(key, value));
-        });
-      }
-    });
-    return telemetryDataList;
+    if (snapshot != null && snapshot.value != null) {
+      Map<dynamic, dynamic> map = snapshot.value;
+      map.entries.toList()
+        ..sort((d1, d2) => int.parse(d1.key).compareTo(int.parse(d2.key)))
+        ..forEach((d) => dataList.add(TelemetryData.from(d.key, d.value)));
+    }
+    return dataList;
   }
 }

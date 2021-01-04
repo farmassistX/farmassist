@@ -29,5 +29,6 @@ class LineChartSpots {
     }
   }
 
+  int get length => _spots.length;
   List<FlSpot> toList() => _spots.toList();
 }
