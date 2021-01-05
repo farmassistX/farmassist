@@ -218,6 +218,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.4.0"
+  firebase_messaging:
+      dependency: "direct main"
+      description:
+        name: firebase_messaging
+        url: "https://pub.dartlang.org"
+      source: hosted
+      version: "8.0.0-dev.11"
+    firebase_messaging_platform_interface:
+      dependency: transitive
+      description:
+        name: firebase_messaging_platform_interface
+        url: "https://pub.dartlang.org"
+      source: hosted
+      version: "1.0.0-dev.7"
+    firebase_messaging_web:
+      dependency: transitive
+      description:
+        name: firebase_messaging_web
+        url: "https://pub.dartlang.org"
+      source: hosted
+      version: "0.1.0-dev.2"
   fl_chart:
     dependency: "direct main"
     description:
