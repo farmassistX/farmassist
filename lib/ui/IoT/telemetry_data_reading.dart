@@ -1,6 +1,5 @@
 import 'package:farmassist/app_theme.dart';
 import 'package:farmassist/data/IoT/models/telemetry_data.dart';
-import 'package:farmassist/data/IoT/repositories/telemetry_data_repository.dart';
 import 'package:farmassist/ui/IoT/reload_time.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,18 +15,6 @@ class TelemetryDataReading extends StatelessWidget {
   Widget build(BuildContext context) {
     TelemetryData telemetryData = context.watch<TelemetryData>();
 
-    // If real-time telemetry data is not available,
-    if (telemetryData == null) {
-      // Tries to read previous telemetry data.
-      // Use Provider.of() method due to stricter restrictions imposed by
-      // context.read() method when it is called inside a build function.
-      telemetryData = RepositoryProvider.of<TelemetryDataRepository>(
-        context,
-        listen: false,
-      ).readPreviousReading(data);
-    }
-
-    // Returns "N/A" if previous telemetry data is also not available.
     if (telemetryData == null) {
       return _buildReading("N/A");
     } else {

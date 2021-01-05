@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-class TelemetryDataChart extends StatelessWidget {
+class TelemetryDataChart extends StatefulWidget {
   TelemetryDataChart({
     Key key,
     @required this.data,
@@ -25,58 +25,88 @@ class TelemetryDataChart extends StatelessWidget {
   final TelemetryDataCardItem cardItem;
 
   @override
+  _TelemetryDataChartState createState() => _TelemetryDataChartState();
+}
+
+class _TelemetryDataChartState extends State<TelemetryDataChart> {
+  bool _hasReadPrev = false;
+  DateTime _prevTimestamp = DateTime.fromMillisecondsSinceEpoch(0);
+
+  @override
   Widget build(BuildContext context) {
-    TelemetryData telemetryData = context.watch<TelemetryData>();
-
-    // If real-time telemetry data is not available,
-    if (telemetryData == null) {
-      // Tries to read previous telemetry data.
-      // Use Provider.of() method due to stricter restrictions imposed by
-      // context.read() method when it is called inside a build function.
-      List<TelemetryData> telemetryDataList =
-          RepositoryProvider.of<TelemetryDataRepository>(
-        context,
-        listen: false,
-      ).readPreviousReadings(data, numData);
-
-      // Returns an empty container if previous telemetry data is also not available.
-      if (telemetryDataList.length == 0) {
-        return Container();
-      }
-      // Adds previous data into line chart points.
-      else {
-        telemetryDataList.forEach((telemetryData) {
-          spots.add(telemetryData.value);
-          bottomTitles.add(DateFormat.ms().format(telemetryData.timestamp));
-        });
-      }
+    // Tries to read previous telemetry data.
+    if (!_hasReadPrev) {
+      return FutureBuilder<List<TelemetryData>>(
+        // Use Provider.of() method due to stricter restrictions imposed by
+        // context.read() method when it is called inside a build function.
+        future: RepositoryProvider.of<TelemetryDataRepository>(
+          context,
+          listen: false,
+        ).readPrevReadings(widget.data, widget.numData),
+        builder: (_, snapshot) {
+          if (snapshot.hasData) {
+            // Adds previous data into line chart points.
+            snapshot.data.forEach((data) {
+              widget.spots.add(data.value);
+              widget.bottomTitles.add(DateFormat.ms().format(data.timestamp));
+              // Saves timestamp of last added data
+              _prevTimestamp = data.timestamp;
+            });
+            Future.delayed(Duration.zero, () {
+              setState(() {
+                _hasReadPrev = true;
+              });
+            });
+          } else if (snapshot.hasError) {
+            Future.delayed(Duration.zero, () {
+              setState(() {
+                _hasReadPrev = true;
+              });
+            });
+          }
+          return Container();
+        },
+      );
     }
-    // If real-time telemetry data is available, add data into line chart points.
+    // After finished reading previous data,
     else {
-      spots.add(telemetryData.value);
-      bottomTitles.add(DateFormat.ms().format(telemetryData.timestamp));
-    }
+      TelemetryData data = context.watch<TelemetryData>();
+      // Avoids adding duplicate data since the data stream automatically
+      // fetches the last added data in the first fetch.
+      if (data != null && data.timestamp != _prevTimestamp) {
+        widget.spots.add(data.value);
+        widget.bottomTitles.add(DateFormat.ms().format(data.timestamp));
+      }
 
+      if (widget.spots.length == 0) {
+        return Container();
+      } else {
+        return _buildlineChart();
+      }
+    }
+  }
+
+  LineChart _buildlineChart() {
     return LineChart(
       LineChartData(
         lineTouchData: _lineTouchData(),
         titlesData: _titlesData(),
-        lineBarsData: _lineBarsData(spots),
+        lineBarsData: _lineBarsData(widget.spots),
         extraLinesData: ExtraLinesData(
           horizontalLines: [
-            _horizontalLine(cardItem.lowerThreshold),
-            _horizontalLine(cardItem.upperThreshold),
+            _horizontalLine(widget.cardItem.lowerThreshold),
+            _horizontalLine(widget.cardItem.upperThreshold),
           ],
         ),
         clipData: FlClipData.all(),
         gridData: FlGridData(show: false),
         borderData: FlBorderData(show: false),
-        // Decrements 1.0 by 0.15 to avoid points be blocked by the drawing region.
-        minX: 0.85,
-        // Increments by 0.15 to avoid points be blocked by the drawing region.
-        maxX: numData.toDouble() + 0.15,
-        maxY: cardItem.upperBoundary,
-        minY: cardItem.lowerBoundary,
+        // Decrements 1.0 by 0.2 to avoid points be blocked by the drawing region.
+        minX: 0.8,
+        // Increments by 0.2 to avoid points be blocked by the drawing region.
+        maxX: widget.numData.toDouble() + 0.2,
+        maxY: widget.cardItem.upperBoundary,
+        minY: widget.cardItem.lowerBoundary,
       ),
     );
   }
@@ -85,7 +115,7 @@ class TelemetryDataChart extends StatelessWidget {
     return [
       LineChartBarData(
         spots: spots.toList(),
-        showingIndicators: xIndexes,
+        showingIndicators: widget.xIndexes,
         isCurved: true,
         curveSmoothness: 0,
         colors: const [Colors.white],
@@ -151,8 +181,8 @@ class TelemetryDataChart extends StatelessWidget {
         reservedSize: 10,
         margin: 8,
         getTitles: (x) {
-          if (x.ceil() <= bottomTitles.length) {
-            return bottomTitles[x.ceil() - 1];
+          if (x.ceil() <= widget.bottomTitles.length) {
+            return widget.bottomTitles[x.ceil() - 1];
           } else {
             return '';
           }
