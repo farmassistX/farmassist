@@ -10,6 +10,10 @@ import 'package:farmassist/ui/login/login_page.dart';
 import 'package:farmassist/ui/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
+
+import 'data/farm/view_model/cityEntryViewModel.dart';
+import 'data/farm/view_model/weather_app_forecast_viewmodel.dart';
 
 class App extends StatelessWidget {
   App({Key key}) : super(key: key);
@@ -19,7 +23,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
+    return MultiProvider(
       providers: [
         BlocProvider<AuthenticationBloc>(
             create: (_) => AuthenticationBloc(
@@ -30,6 +34,10 @@ class App extends StatelessWidget {
         BlocProvider<DetailBloc>(
           create: (_) => DetailBloc(null),
         ),
+        ChangeNotifierProvider<ForecastViewModel>(
+            create: (_) => ForecastViewModel()),
+        ChangeNotifierProvider<CityEntryViewModel>(
+            create: (_) => CityEntryViewModel()),
       ],
       child: MultiRepositoryProvider(
         providers: [

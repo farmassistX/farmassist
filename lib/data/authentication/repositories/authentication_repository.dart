@@ -60,6 +60,24 @@ class AuthenticationRepository {
         'email': email,
         'displayName': name,
       });
+      await FirebaseFirestore.instance.collection('Planting').doc(user.uid).set({
+        'id': user.uid,
+      });
+      await FirebaseFirestore.instance.collection('Harvesting').doc(user.uid).set({
+        'id': user.uid,
+      });
+      await FirebaseFirestore.instance.collection('Planting').doc(user.uid).collection("January").doc().set({
+        'month': 1,
+      });
+      await FirebaseFirestore.instance.collection('Planting').doc(user.uid).collection("February").doc().set({
+        'month': 2,
+      });
+      await FirebaseFirestore.instance.collection('Harvesting').doc(user.uid).collection("January").doc().set({
+        'month': 1,
+      });
+      await FirebaseFirestore.instance.collection('Harvesting').doc(user.uid).collection("February").doc().set({
+        'month': 2,
+      });
     } on Exception {
       throw SignUpFailure();
     }

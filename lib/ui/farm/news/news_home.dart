@@ -57,7 +57,7 @@ class HomePage extends StatelessWidget {
             style: AppTheme.headline5
                 .copyWith(color: Theme.of(context).colorScheme.primaryVariant),
           ),
-          backgroundColor: Theme.of(context).bottomAppBarColor,
+          backgroundColor: Colors.white,
           pinned: true,
         ),
         SliverToBoxAdapter(
@@ -76,11 +76,11 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemNavigationBarColor: Theme.of(context).backgroundColor,
-        statusBarColor: Theme.of(context).backgroundColor));
+    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    //     systemNavigationBarColor: Theme.of(context).backgroundColor,
+    //     statusBarColor: Theme.of(context).backgroundColor));
     return Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Colors.white,
         body: SafeArea(
             child: BlocBuilder<NewsBloc, NewsState>(builder: (context, state) {
           if (state == null) {

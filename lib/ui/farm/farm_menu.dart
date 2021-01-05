@@ -1,5 +1,6 @@
 import 'package:farmassist/ui/farm/news/news_home.dart';
 import 'package:farmassist/ui/farm/planting/planting_menu.dart';
+import 'package:farmassist/ui/farm/weather/weatherHome.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/colors/gf_color.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
@@ -17,6 +18,7 @@ class _FarmMenuState extends State<FarmMenu> {
     return Container(
       child: Column(
         children: [
+          WeatherHome(),
           GFListTile(
             avatar: GFAvatar(
               backgroundImage: AssetImage('assets/images/manage_planting.png'),
