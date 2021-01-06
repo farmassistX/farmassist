@@ -10,11 +10,13 @@ class UserRepository {
   }
 
   User _currentUser;
-  static String _uid;
+  String _uid;
   DocumentReference _userDoc;
 
-  User get currentUser => _currentUser;
-  static String get uid => _uid;
+  User get currentUser => FirebaseAuth.instance.currentUser;
+  String get uid => FirebaseAuth.instance.currentUser.uid;
+  String get email => FirebaseAuth.instance.currentUser.email;
+  String get displayName => FirebaseAuth.instance.currentUser.displayName;
 
   Future<void> saveToken(String token) async {
     await _userDoc.update({

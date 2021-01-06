@@ -55,12 +55,18 @@ class UserInfoField extends StatelessWidget {
   Text _buildFieldValue(BuildContext context, String field) {
     if (field == 'displayName') {
       return Text(
-        context.select((UserRepository u) => u.currentUser.displayName),
+        RepositoryProvider.of<UserRepository>(
+          context,
+          listen: false,
+        ).displayName,
         style: AppTheme.headline6,
       );
     } else {
       return Text(
-        context.select((UserRepository u) => u.currentUser.email),
+        RepositoryProvider.of<UserRepository>(
+          context,
+          listen: false,
+        ).email,
         style: AppTheme.headline6,
       );
     }
