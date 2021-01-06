@@ -9,10 +9,15 @@ class MessageHandler {
 
   FirebaseMessaging _messaging;
   UserRepository _userRepository;
+  String _token;
 
   Future<void> generateToken() async {
-    String token = await _messaging.getToken();
-    await _userRepository.saveToken(token);
+    _token = await _messaging.getToken();
+    await _userRepository.saveToken(_token);
     _messaging.onTokenRefresh.listen(_userRepository.saveToken);
+  }
+
+  Future<void> deleteToken() {
+    return _userRepository.deleteToken(_token);
   }
 }

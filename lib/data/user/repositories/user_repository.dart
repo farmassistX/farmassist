@@ -19,13 +19,25 @@ class UserRepository {
   String get displayName => FirebaseAuth.instance.currentUser.displayName;
 
   Future<void> saveToken(String token) async {
-    await _userDoc.update({
+    await _userDoc.set({
       'tokens': FieldValue.arrayUnion([token]),
+    }, SetOptions(merge: true));
+    // Quick and dirty solution, it just works.
+    Future.delayed(Duration(seconds: 1), () {
+      _userDoc.update({
+        'tokens': FieldValue.arrayUnion([token]),
+      });
     });
   }
 
-  Future<void> update(AppUser appUser) async {
-    await _userDoc.update(appUser.toMap());
+  Future<void> deleteToken(String token) {
+    return _userDoc.update({
+      'tokens': FieldValue.arrayRemove([token]),
+    });
+  }
+
+  Future<void> update(AppUser appUser) {
+    return _userDoc.update(appUser.toMap());
   }
 
   Future<void> delete() => _userDoc.delete();

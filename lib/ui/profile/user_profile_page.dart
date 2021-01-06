@@ -3,6 +3,7 @@ import 'package:farmassist/bloc/authentication/authentication.dart';
 import 'package:farmassist/ui/profile/avatar.dart';
 import 'package:farmassist/ui/profile/user_info_field.dart';
 import 'package:farmassist/ui/widgets/tab_page.dart';
+import 'package:farmassist/utils/message_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -51,9 +52,12 @@ class _LogOutButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(30.0),
             ),
             color: const Color(0xFFFFD600),
-            onPressed: () => context
-                .read<AuthenticationBloc>()
-                .add(AuthenticationLogoutRequested()),
+            onPressed: () async {
+              await context.read<MessageHandler>().deleteToken();
+              context
+                  .read<AuthenticationBloc>()
+                  .add(AuthenticationLogoutRequested());
+            },
           ),
         ),
       ),
