@@ -3,6 +3,8 @@ import 'package:farmassist/ui/farm/news_details/bloc/bloc.dart';
 import 'package:farmassist/ui/widgets/news_customWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:farmassist/ui/farm/news_details/newsDetailPage.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../../app_theme.dart';
 
@@ -37,7 +39,12 @@ class NewsCard extends StatelessWidget {
         onTap: () {
           BlocProvider.of<DetailBloc>(context)
               .add(SelectNewsForDetail(article: artical));
-          Navigator.pushNamed(context, '/detail');
+          Navigator.push(
+              context,
+              PageTransition(
+                  type: PageTransitionType.leftToRightWithFade,
+                  child: NewsDetailPage()
+              ));;
         },
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20),
@@ -54,7 +61,7 @@ class NewsCard extends StatelessWidget {
                         fit: StackFit.expand,
                         children: <Widget>[
                           Container(
-                              color: Theme.of(context).primaryColor,
+                              color: Colors.grey,
                               child: artical.urlToImage == null ||
                                       artical.urlToImage.isEmpty
                                   ? Container()
@@ -66,38 +73,38 @@ class NewsCard extends StatelessWidget {
               SizedBox(width: 10),
               Expanded(
                   child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  SizedBox(),
-                  Container(
-                    height: 52,
-                    child: Text(
-                      artical.title,
-                      style: Theme.of(context).textTheme.body1,
-                      overflow: TextOverflow.fade,
-                    ),
-                  ),
-                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
+                      SizedBox(),
                       Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Theme.of(context).primaryColor,
-                        ),
+                        height: 52,
                         child: Text(
-                          '$type',
-                          style: AppTheme.headline6.copyWith(
-                              color: Theme.of(context).colorScheme.onPrimary),
+                          artical.title,
+                          style: Theme.of(context).textTheme.bodyText1,
+                          overflow: TextOverflow.fade,
                         ),
                       ),
-                      Container(
-                        padding: EdgeInsets.only(left: 10),
-                        child: Text(artical.getDateOnly(),
-                            style: AppTheme.subtitle2),
-                      ),
-                    ],
+                      Row(
+                        children: <Widget>[
+                          Container(
+                            padding:
+                                EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Colors.black,
+                            ),
+                            child: Text(
+                              '$type',
+                              style: AppTheme.headline6.copyWith(
+                                  color: Colors.white),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(left: 10),
+                            child: Text(artical.getDateOnly(),
+                                style: AppTheme.subtitle2),
+                          ),
+                        ],
                   )
                 ],
               ))

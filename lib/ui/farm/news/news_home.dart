@@ -55,13 +55,12 @@ class HomePage extends StatelessWidget {
           title: Text(
             '${type.toUpperCase()} NEWS',
             style: AppTheme.headline5
-                .copyWith(color: Theme.of(context).colorScheme.primaryVariant),
+                .copyWith(color: Colors.black),
           ),
           backgroundColor: Colors.white,
+          elevation: 10.0,
+          shadowColor: Colors.grey,
           pinned: true,
-        ),
-        SliverToBoxAdapter(
-          child: _headerNews(list.first),
         ),
         SliverList(
             delegate: SliverChildBuilderDelegate(

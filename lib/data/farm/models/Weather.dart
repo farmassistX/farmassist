@@ -1,4 +1,3 @@
-
 import 'package:farmassist/data/farm/utils/WeatherIconMapper.dart';
 import 'package:flutter/material.dart';
 

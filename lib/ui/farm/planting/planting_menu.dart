@@ -1,4 +1,5 @@
 import 'package:farmassist/app_theme.dart';
+import 'package:farmassist/ui/farm/planting/planting_list.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:getwidget/components/appbar/gf_appbar.dart';
@@ -22,15 +23,20 @@ class _PlantingMenuState extends State<PlantingMenu> {
             leading: GFIconButton(
               icon: Icon(
                 Icons.arrow_back,
-                color: Colors.grey,
+                color: Colors.white,
               ),
               onPressed: () {
                 Navigator.pop(context);
               },
               type: GFButtonType.transparent,
             ),
-            title: Text("Manage Planting"),
-            backgroundColor: Colors.white,
+            title: Text(
+              "Manage Planting",
+              style: TextStyle(
+                color: AppTheme.nearlyWhite,
+              ),
+            ),
+            backgroundColor: AppTheme.pastelGreen,
           ),
           backgroundColor: Colors.transparent,
           body: ListView(
@@ -64,19 +70,28 @@ class _PlantingMenuState extends State<PlantingMenu> {
                         title: GFListTile(
                           titleText:'Create Planting',
                           subtitle: Text("Record a new planting activity."),
+                          icon: Icon(Icons.arrow_forward),
                         ),
                       ),
                     ) ,
                     InkWell(
-                      onTap: (){},
+                      onTap: (){
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                type: PageTransitionType.leftToRightWithFade,
+                                child: PlantingList()
+                            ));
+                      },
                       child: GFCard(
                         boxFit: BoxFit.cover,
                         image: Image.asset(
-                            'assets/images/planting_create.jpg'
+                            'assets/images/planting_view.jpg'
                         ),
                         title: GFListTile(
                           titleText:'View Planting',
                           subtitle: Text("Take a look at all your previous records."),
+                          icon: Icon(Icons.arrow_forward),
                         ),
                       ),
                     ) ,

@@ -39,7 +39,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+
   fonts:
     - family: WeatherIcons
       fonts:
-        - asset: fonts/weathericons-regular.ttf
+        - asset: fonts/weathericons-regular-webfont.ttf

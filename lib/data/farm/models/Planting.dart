@@ -1,7 +1,7 @@
 class Planting {
   String _name;
   int _noOfPlants;
-  DateTime _date;
+  String _date;
   String _estimatedHarvest;
   String _location;
   String _fertilizers;
@@ -40,9 +40,9 @@ class Planting {
     _estimatedHarvest = value;
   }
 
-  DateTime get date => _date;
+  String get date => _date;
 
-  set date(DateTime value) {
+  set date(String value) {
     _date = value;
   }
 

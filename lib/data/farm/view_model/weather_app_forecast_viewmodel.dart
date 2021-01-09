@@ -18,6 +18,8 @@ class ForecastViewModel with ChangeNotifier {
 
   WeatherCondition _condition;
   String _description;
+  String _iconCode;
+  IconData _iconData;
   double _minTemp;
   double _maxTemp;
   double _temp;
@@ -29,10 +31,11 @@ class ForecastViewModel with ChangeNotifier {
   double _longitude;
   List<Weather> _daily;
   bool _isDayTime;
-  String _iconData;
 
   WeatherCondition get condition => _condition;
+  IconData get iconData => getIconData(_iconCode);
   String get description => _description;
+  String get iconCode => _iconCode;
   double get minTemp => _minTemp;
   double get maxTemp => _maxTemp;
   double get temp => _temp;
@@ -44,7 +47,6 @@ class ForecastViewModel with ChangeNotifier {
   double get latitide => _latitude;
   bool get isDaytime => _isDayTime;
   List<Weather> get daily => _daily;
-  String get iconData => _iconData;
 
   ForecastService forecastService;
 
@@ -85,6 +87,8 @@ class ForecastViewModel with ChangeNotifier {
 
     _condition = forecast.current.condition;
     _city = forecast.city;
+    _iconCode = forecast.current.iconCode;
+
     _description = Strings.toTitleCase(forecast.current.description);
     _lastUpdated = forecast.lastUpdated;
     _temp = TemperatureConvert.kelvinToCelsius(forecast.current.temp);

@@ -1,4 +1,5 @@
 import 'package:farmassist/data/farm/models/Weather.dart';
+import 'package:farmassist/data/farm/utils/WeatherIconMapper.dart';
 import 'package:farmassist/data/farm/view_model/weather_app_forecast_viewmodel.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +9,7 @@ class WeatherSummary extends StatelessWidget {
   final double temp;
   final double feelsLike;
   final bool isdayTime;
-  final String iconData;
+  final IconData iconData;
 
   WeatherSummary(
       {Key key,
@@ -17,37 +18,43 @@ class WeatherSummary extends StatelessWidget {
         @required this.temp,
         @required this.feelsLike,
         @required this.isdayTime,
-        @required this.iconData})
+        @required this.iconData
+      })
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-        Column(
+      child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(
-              '${_formatTemperature(this.temp)}°ᶜ',
-              style: TextStyle(
-                fontSize: 50,
-                color: Colors.black,
-                fontWeight: FontWeight.w300,
+        Container(
+          padding: EdgeInsets.only(bottom: 20.0),
+          child: Column(
+            children: [
+              Text(
+                '${_formatTemperature(this.temp)}°ᶜ',
+                style: TextStyle(
+                  fontSize: 50,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w300,
+                ),
               ),
-            ),
-            Text(
-              'Feels like ${_formatTemperature(this.feelsLike)}°ᶜ',
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.black,
-                fontWeight: FontWeight.w300,
+              Text(
+                'Feels like ${_formatTemperature(this.feelsLike)}°ᶜ',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w300,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-        Icon(
-          IconData(0xf00d),
-          size: 70,
-        ),
+        Container(
+          padding: EdgeInsets.only(bottom: 30.0),
+          child: new Icon(iconData, size: 60.0,),
+        )
       ]),
     );
   }
