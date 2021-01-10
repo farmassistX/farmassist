@@ -4,15 +4,16 @@ import 'package:farmassist/ui/farm/weather/weatherSummaryView.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'DailySummaryView.dart';
 import 'cityEntryView.dart';
 import 'gradient.dart';
 
-class WeatherHome extends StatefulWidget {
+class WeatherHomeStatistics extends StatefulWidget {
   @override
-  _WeatherHomeState createState() => _WeatherHomeState();
+  _WeatherHomeStatisticsState createState() => _WeatherHomeStatisticsState();
 }
 
-class _WeatherHomeState extends State<WeatherHome> {
+class _WeatherHomeStatisticsState extends State<WeatherHomeStatistics> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ForecastViewModel>(
@@ -27,31 +28,31 @@ class _WeatherHomeState extends State<WeatherHome> {
   Widget buildHomeView(BuildContext context, model) {
     return Consumer<ForecastViewModel>(
         builder: (context, weatherViewModel, child) => Container(
-          height: 225,
+            height: 225,
             child: ListView(
               children: <Widget>[
-                CityEntryView(),
-                weatherViewModel.isRequestPending
-                    ? buildBusyIndicator()
-                    : weatherViewModel.isRequestError
+                weatherViewModel.daily==null
                     ? Center(
                     child: Text('Ooops...something went wrong',
                         style: TextStyle(
                             fontSize: 21, color: Colors.white)))
-                    : Column(children: [
-                  WeatherSummary(
-                    condition: weatherViewModel.condition,
-                    temp: weatherViewModel.temp,
-                    feelsLike: weatherViewModel.feelsLike,
-                    isdayTime: weatherViewModel.isDaytime,
-                    iconData: weatherViewModel.iconData,
-                    // weatherModel: model,
-                  ),
-                ]),
+                    : Container(child:
+                  buildDailySummary(weatherViewModel.daily)
+                ),
               ],
             )
         )
     );
+  }
+
+  Widget buildDailySummary(List<Weather> dailyForecast) {
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: dailyForecast
+            .map((item) => new DailySummaryView(
+          weather: item,
+        ))
+            .toList());
   }
 
   Widget buildBusyIndicator() {

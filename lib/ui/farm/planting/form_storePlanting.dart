@@ -79,6 +79,7 @@ class _formStorePlantingState extends State<formStorePlanting> {
                         SizedBox(height: 10),
                         FormBuilderDateTimePicker(
                           name: 'plantDate',
+                          format: DateFormat('dd-MM-yyyy'),
                           currentDate: DateTime.now(),
                           inputType: InputType.date,
                           initialValue: DateTime.now(),
@@ -107,73 +108,6 @@ class _formStorePlantingState extends State<formStorePlanting> {
                           ),
                         ),
                         SizedBox(height: 20),
-                        // FormBuilderCheckbox(
-                        //   name: 'accept_terms',
-                        //   initialValue: false,
-                        //   title: RichText(
-                        //     text: TextSpan(
-                        //       children: [
-                        //         TextSpan(
-                        //           text: 'I have read and agree to the ',
-                        //           style: TextStyle(color: Colors.black),
-                        //         ),
-                        //         TextSpan(
-                        //           text: 'Terms and Conditions',
-                        //           style: TextStyle(color: Colors.blue),
-                        //         ),
-                        //       ],
-                        //     ),
-                        //   ),
-                        //   validator: FormBuilderValidators.equal(
-                        //     context,
-                        //     true,
-                        //     errorText:
-                        //     'You must accept terms and conditions to continue',
-                        //   ),
-                        // ),
-                        // FormBuilderDropdown(
-                        //   name: 'gender',
-                        //   decoration: InputDecoration(
-                        //     labelText: 'Gender',
-                        //   ),
-                        //   // initialValue: 'Male',
-                        //   allowClear: true,
-                        //   hint: Text('Select Gender'),
-                        // ),
-                        // FormBuilderTypeAhead(
-                        //   decoration: InputDecoration(
-                        //     labelText: 'Country',
-                        //   ),
-                        //   name: 'country',
-                        //   itemBuilder: (context, country) {
-                        //     return ListTile(
-                        //       title: Text(country),
-                        //     );
-                        //   },
-                        //   controller: TextEditingController(text: ''),
-                        //   initialValue: 'Uganda',
-                        // ),
-                        // FormBuilderRadioGroup(
-                        //   decoration:
-                        //   InputDecoration(labelText: 'My chosen language'),
-                        //   name: 'best_language',
-                        // ),
-                        // FormBuilderTouchSpin(
-                        //   decoration: InputDecoration(labelText: 'Stepper'),
-                        //   name: 'stepper',
-                        //   initialValue: 10,
-                        //   step: 1,
-                        //   iconSize: 48.0,
-                        //   addIcon: Icon(Icons.arrow_right),
-                        //   subtractIcon: Icon(Icons.arrow_left),
-                        // ),
-                        // FormBuilderRating(
-                        //   decoration: InputDecoration(labelText: 'Rate this form'),
-                        //   name: 'rate',
-                        //   iconSize: 32.0,
-                        //   initialValue: 1.0,
-                        //   max: 5.0,
-                        // ),
                       ],
                     ),
                   ),

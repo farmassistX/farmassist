@@ -1,14 +1,12 @@
- import 'dart:async';
-
+import 'dart:async';
 import 'package:farmassist/data/farm/utils/weather_strings.dart';
 import 'package:farmassist/ui/farm/planting/display_planting.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
- import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:getwidget/components/appbar/gf_appbar.dart';
 import 'package:getwidget/components/button/gf_icon_button.dart';
-import 'package:getwidget/components/card/gf_card.dart';
 import 'package:getwidget/components/list_tile/gf_list_tile.dart';
 import 'package:getwidget/types/gf_button_type.dart';
 import 'package:page_transition/page_transition.dart';
@@ -25,19 +23,9 @@ class PlantingList extends StatefulWidget {
 class _PlantingListState extends State<PlantingList> {
   FirebaseAuth _auth = FirebaseAuth.instance;
 
-  StreamController _streamController;
-  Stream _stream;
   final _monthOptions = ["January","February"];
   var _option;
   String uid = "";
-
-  @override
-  void initState() {
-    super.initState();
-
-    _streamController = StreamController();
-    _stream = _streamController.stream;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,6 +97,7 @@ class _PlantingListState extends State<PlantingList> {
                     itemBuilder: (context,index){
                       String itemTitle = snapshot.data.docs[index]['name'];
                       String date = snapshot.data.docs[index]['date'];
+                      String harvest = snapshot.data.docs[index]['harvestDate'];
                       String number = snapshot.data.docs[index]['noOfPlants'];
                       double est = snapshot.data.docs[index]['estimatedHarvest'];
                       return GFListTile(
@@ -116,6 +105,7 @@ class _PlantingListState extends State<PlantingList> {
                         titleText: Strings.toTitleCase(itemTitle),
                         subtitleText: date,
                         color: Colors.blueGrey[100],
+                        icon: Icon(Icons.chevron_right),
                         onTap: (){
                           Navigator.push(
                               context,
@@ -126,6 +116,7 @@ class _PlantingListState extends State<PlantingList> {
                                     plantNo: number,
                                     plantDate: date,
                                     plantEstimate: est,
+                                    plantHarvest: harvest,
                                   )
                               ));
                         },

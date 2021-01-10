@@ -1,43 +1,61 @@
-import 'package:farmassist/app_theme.dart';
+import 'package:farmassist/data/farm/repositories/harvest_storeData.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:getwidget/components/appbar/gf_appbar.dart';
 import 'package:getwidget/components/button/gf_icon_button.dart';
 import 'package:getwidget/types/gf_button_type.dart';
+import 'package:intl/intl.dart';
 
-class DisplayPlanting extends StatefulWidget {
+import '../../../app_theme.dart';
+
+class DisplayHarvesting extends StatefulWidget {
+  final String documentID;
   final String plantName;
   final String plantNo;
   final String plantDate;
   final double plantEstimate;
   final String plantHarvest;
+  final String plantQuantity;
+  final int plantMonth;
 
-  DisplayPlanting({
+  DisplayHarvesting({
+    this.documentID,
     this.plantName,
     this.plantNo,
     this.plantDate,
     this.plantEstimate,
     this.plantHarvest,
+    this.plantMonth,
+    this.plantQuantity
   });
 
   @override
-  _DisplayPlantingState createState() => _DisplayPlantingState(
-      name:plantName, no:plantNo, date:plantDate, estimate:plantEstimate, harvest: plantHarvest);
+  _DisplayHarvestingState createState() =>_DisplayHarvestingState(
+      name:plantName, no:plantNo, date:plantDate, estimate:plantEstimate, harvest: plantHarvest, id: documentID, month: plantMonth, quantity: plantQuantity,
+  );
 }
 
-class _DisplayPlantingState extends State<DisplayPlanting> {
+class _DisplayHarvestingState extends State<DisplayHarvesting> {
+  final _formKey = GlobalKey<FormBuilderState>();
+
+  final String id;
   final String name;
   final String no;
   final String date;
   final double estimate;
   final String harvest;
+  final int month;
+  final String quantity;
 
-  _DisplayPlantingState({
+  _DisplayHarvestingState({
+    this.id,
     this.name,
     this.no,
     this.date,
     this.estimate,
     this.harvest,
+    this.month,
+    this.quantity
   });
 
   @override
@@ -54,7 +72,7 @@ class _DisplayPlantingState extends State<DisplayPlanting> {
             },
             type: GFButtonType.transparent,
           ),
-          title: Text("View Planting Entry",
+          title: Text("View Harvesting Entry",
             style: TextStyle(
               color: AppTheme.nearlyWhite,
             ),),
@@ -63,12 +81,13 @@ class _DisplayPlantingState extends State<DisplayPlanting> {
         body: Container(
           padding: EdgeInsets.all(5.0),
           child: Column(
-            children: <Widget> [
+            children: <Widget>[
               new Expanded(
                 child: ListView(
                   padding: EdgeInsets.all(10.0),
                   children: <Widget>[
                     FormBuilder(
+                      key: _formKey,
                       child: Column(
                         children: <Widget>[
                           FormBuilderTextField(
@@ -95,7 +114,7 @@ class _DisplayPlantingState extends State<DisplayPlanting> {
                           SizedBox(height: 10),
                           FormBuilderTextField(
                             readOnly: true,
-                            name: 'plantNumber',
+                            name: 'plantDate',
                             initialValue: date,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
@@ -124,18 +143,32 @@ class _DisplayPlantingState extends State<DisplayPlanting> {
                           ),
                           SizedBox(height: 10),
                           FormBuilderTextField(
+                            name: 'harvestQuantity',
                             readOnly: true,
-                            name: 'HarvestDate',
-                            initialValue: harvest,
+                            initialValue: quantity,
+                            validator: FormBuilderValidators.compose([
+                              FormBuilderValidators.required(context),
+                            ]),
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
-                              labelText: 'Estimated Harvest Date',
+                              labelText: "Harvest Yield",
+                              icon: Icon(Icons.format_list_numbered),
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          FormBuilderTextField(
+                            name: 'harvestDate',
+                            readOnly: true,
+                            initialValue: harvest,
+                            decoration: InputDecoration(
+                              labelText: 'Harvest Date',
                               icon: Icon(Icons.date_range),
                             ),
                           ),
                         ],
                       ),
                     ),
+                    SizedBox(height: 20),
                   ],
                 ),
               )

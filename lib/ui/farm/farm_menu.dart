@@ -1,5 +1,7 @@
+import 'package:farmassist/ui/farm/harvesting/harvesting_menu.dart';
 import 'package:farmassist/ui/farm/news/news_home.dart';
 import 'package:farmassist/ui/farm/planting/planting_menu.dart';
+import 'package:farmassist/ui/farm/statistics/statistics_home.dart';
 import 'package:farmassist/ui/farm/weather/weatherHome.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/colors/gf_color.dart';
@@ -45,7 +47,16 @@ class _FarmMenuState extends State<FarmMenu> {
               titleText: 'Harvesting',
               color: Colors.blueGrey[100],
               subtitleText: 'Store and view harvesting related activities.',
-              icon: Icon(Icons.chevron_right)),
+              icon: Icon(Icons.chevron_right),
+              onTap: (){
+                Navigator.push(
+                  context,
+                  PageTransition(
+                      type: PageTransitionType.leftToRightWithFade,
+                      child: HarvestMenu()),
+                );
+              },
+          ),
           GFListTile(
             avatar: GFAvatar(
               backgroundImage: AssetImage('assets/images/manage_news.png'),
@@ -74,7 +85,16 @@ class _FarmMenuState extends State<FarmMenu> {
               subtitleText:
                   'Numbers based on your planting and harvesting history.',
               color: Colors.blueGrey[100],
-              icon: Icon(Icons.chevron_right)),
+              icon: Icon(Icons.chevron_right),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                      type: PageTransitionType.leftToRightWithFade,
+                      child: StatisticsHome()),
+                );
+              },
+          ),
         ],
       ),
     );

@@ -42,7 +42,7 @@ class Forecast {
           .map((item) => Weather.fromDailyJson(item))
           .toList()
           .skip(1)
-          .take(3)
+          .take(5)
           .toList();
     }
 

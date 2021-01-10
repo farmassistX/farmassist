@@ -11,6 +11,9 @@ void addData(Map<String, dynamic> obj) {
   User user = auth.currentUser;
   final uid = user.uid;
   var month;
+  double estimate;
+  DateTime futureDate;
+  int day;
 
   DateTime dt = obj['plantDate'];
   print(dt.month);
@@ -25,6 +28,12 @@ void addData(Map<String, dynamic> obj) {
   final DateFormat formatter = DateFormat('dd-MM-yyyy');
   final String formatted = formatter.format(dt);
 
+  estimate = obj['plantEstimated'];
+  day = estimate.round() * 7;
+  futureDate = dt.add(new Duration(days: day));
+  final String harvestDate = formatter.format(futureDate);
+
+
   CollectionReference cr =
       db.collection("Planting").doc(uid).collection(month);
 
@@ -37,6 +46,8 @@ void addData(Map<String, dynamic> obj) {
     "year": dt.year,
     "day": dt.day,
     "week": dt.weekday,
+    "harvestDate": harvestDate,
+    "harvested": false,
   };
 
   cr.doc().set(data);
