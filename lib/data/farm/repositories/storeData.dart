@@ -1,21 +1,53 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farmassist/data/farm/models/Planting.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
 
-void addData(Planting obj) {
-  String month = DateTime.now().month.toString().toLowerCase();
 
-  FirebaseFirestore db = FirebaseFirestore.instance;
+void addData(Map<String, dynamic> obj) {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseFirestore db = FirebaseFirestore.instance;
+
+  User user = auth.currentUser;
+  final uid = user.uid;
+  var month;
+  double estimate;
+  DateTime futureDate;
+  int day;
+
+  DateTime dt = obj['plantDate'];
+  print(dt.month);
+
+  if(dt.month==1){
+    month="January";
+  }
+  else{
+    month="February";
+  }
+
+  final DateFormat formatter = DateFormat('dd-MM-yyyy');
+  final String formatted = formatter.format(dt);
+
+  estimate = obj['plantEstimated'];
+  day = estimate.round() * 7;
+  futureDate = dt.add(new Duration(days: day));
+  final String harvestDate = formatter.format(futureDate);
+
+
   CollectionReference cr =
-      db.collection("Planting").doc(month).collection("Activity");
+      db.collection("Planting").doc(uid).collection(month);
 
   Map<String, dynamic> data = {
-    "name": obj.name,
-    "noOfPlants": obj.noOfPlants,
-    "date": obj.date,
-    "estimatedHarvest": obj.estimatedHarvest,
-    "location": obj.location,
-    "fertilizers": obj.fertilizers,
-    "_seedsUsed": obj.seedsUsed,
+    "name": obj['plantName'],
+    "noOfPlants": obj['plantNumber'],
+    "date": formatted,
+    "estimatedHarvest": obj['plantEstimated'],
+    "month": dt.month,
+    "year": dt.year,
+    "day": dt.day,
+    "week": dt.weekday,
+    "harvestDate": harvestDate,
+    "harvested": false,
   };
 
   cr.doc().set(data);

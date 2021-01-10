@@ -20,14 +20,17 @@ dependencies:
   fl_chart: "^0.12.2"
   flutter_bloc: "^6.1.0"
   font_awesome_flutter: "^8.4.0"
+  flutter_form_builder:
   formz: "^0.3.0"
   getwidget: "^1.2.4"
+  geolocator:
   google_sign_in: "^4.5.4"
   http: "0.12.2"
   intl: "^0.16.1"
   page_transition: "^1.1.7+5"
   pedantic: "^1.9.0"
   provider: "^4.0.0"
+  page_view_indicator: "^2.0.4"
 
 dev_dependencies:
   flutter_test:
@@ -37,3 +40,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+
+  fonts:
+    - family: WeatherIcons
+      fonts:
+        - asset: fonts/weathericons-regular-webfont.ttf

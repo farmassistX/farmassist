@@ -55,13 +55,12 @@ class HomePage extends StatelessWidget {
           title: Text(
             '${type.toUpperCase()} NEWS',
             style: AppTheme.headline5
-                .copyWith(color: Theme.of(context).colorScheme.primaryVariant),
+                .copyWith(color: Colors.black),
           ),
-          backgroundColor: Theme.of(context).bottomAppBarColor,
+          backgroundColor: Colors.white,
+          elevation: 10.0,
+          shadowColor: Colors.grey,
           pinned: true,
-        ),
-        SliverToBoxAdapter(
-          child: _headerNews(list.first),
         ),
         SliverList(
             delegate: SliverChildBuilderDelegate(
@@ -76,11 +75,11 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemNavigationBarColor: Theme.of(context).backgroundColor,
-        statusBarColor: Theme.of(context).backgroundColor));
+    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    //     systemNavigationBarColor: Theme.of(context).backgroundColor,
+    //     statusBarColor: Theme.of(context).backgroundColor));
     return Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Colors.white,
         body: SafeArea(
             child: BlocBuilder<NewsBloc, NewsState>(builder: (context, state) {
           if (state == null) {

@@ -1,19 +1,19 @@
-import 'package:farmassist/app_theme.dart';
-import 'package:farmassist/ui/farm/planting/planting_list.dart';
+import 'package:farmassist/ui/farm/harvesting/harvesting_list.dart';
+import 'package:farmassist/ui/farm/harvesting/planting_selection_list.dart';
 import 'package:flutter/material.dart';
+import 'package:farmassist/app_theme.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:getwidget/components/appbar/gf_appbar.dart';
 import 'package:getwidget/components/button/gf_icon_button.dart';
 import 'package:getwidget/types/gf_button_type.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:farmassist/ui/farm/planting/form_storePlanting.dart';
 
-class PlantingMenu extends StatefulWidget {
+class HarvestMenu extends StatefulWidget {
   @override
-  _PlantingMenuState createState() => _PlantingMenuState();
+  _HarvestMenuState createState() => _HarvestMenuState();
 }
 
-class _PlantingMenuState extends State<PlantingMenu> {
+class _HarvestMenuState extends State<HarvestMenu> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,7 +31,7 @@ class _PlantingMenuState extends State<PlantingMenu> {
               type: GFButtonType.transparent,
             ),
             title: Text(
-              "Manage Planting",
+              "Manage Harvesting",
               style: TextStyle(
                 color: AppTheme.nearlyWhite,
               ),
@@ -52,18 +52,18 @@ class _PlantingMenuState extends State<PlantingMenu> {
                         Navigator.push(
                             context,
                             PageTransition(
-                            type: PageTransitionType.leftToRightWithFade,
-                            child: formStorePlanting()
-                        ));
+                                type: PageTransitionType.leftToRightWithFade,
+                                child: PlantingSelectionList(),
+                            ));
                       },
                       child: GFCard(
                         boxFit: BoxFit.cover,
                         image: Image.asset(
-                            'assets/images/planting_create.jpg'
+                            'assets/images/harvesting_create.jpg'
                         ),
                         title: GFListTile(
-                          titleText:'Create Planting',
-                          subtitle: Text("Record a new planting activity."),
+                          titleText:'Create Harvesting',
+                          subtitle: Text("Record a new harvesting activity."),
                           icon: Icon(Icons.arrow_forward),
                         ),
                       ),
@@ -74,16 +74,16 @@ class _PlantingMenuState extends State<PlantingMenu> {
                             context,
                             PageTransition(
                                 type: PageTransitionType.leftToRightWithFade,
-                                child: PlantingList()
+                                child: HarvestList(),
                             ));
                       },
                       child: GFCard(
                         boxFit: BoxFit.cover,
                         image: Image.asset(
-                            'assets/images/planting_view.jpg'
+                            'assets/images/harvesting_view.jfif'
                         ),
                         title: GFListTile(
-                          titleText:'View Planting',
+                          titleText:'View Harvesting',
                           subtitle: Text("Take a look at all your previous records."),
                           icon: Icon(Icons.arrow_forward),
                         ),

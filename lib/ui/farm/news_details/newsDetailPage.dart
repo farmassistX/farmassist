@@ -29,24 +29,9 @@ class NewsDetailPage extends StatelessWidget {
                 },
                 icon: Icon(
                   Icons.keyboard_backspace,
-                  color: Theme.of(context).backgroundColor,
+                  color: Colors.blueGrey,
                 ),
               ),
-              Expanded(child: SizedBox()),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.favorite_border,
-                  color: Theme.of(context).backgroundColor,
-                ),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.share,
-                  color: Theme.of(context).backgroundColor,
-                ),
-              )
             ],
           ),
         )
@@ -55,6 +40,7 @@ class NewsDetailPage extends StatelessWidget {
   }
 
   Widget _body(BuildContext context, Article article) {
+    print(article.content);
     return CustomScrollView(
       slivers: <Widget>[
         SliverToBoxAdapter(
@@ -62,33 +48,33 @@ class NewsDetailPage extends StatelessWidget {
         ),
         SliverToBoxAdapter(
             child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(
-                height: 10,
-              ),
-              Text(article.title, style: AppTheme.headline4),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(article.author ?? '', style: AppTheme.headline4),
                   SizedBox(
-                    width: 10,
+                    height: 10,
                   ),
-                  Text(article.getTime(), style: AppTheme.headline4),
+                  Text(article.title, style: AppTheme.headline5),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Text(article.author ?? '', style: AppTheme.subtitle2),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(article.getTime(), style: AppTheme.subtitle2),
+                    ],
+                  ),
+                  Divider(
+                    height: 20,
+                    thickness: 1,
+                  ),
+                  Text(article.content ?? '', style: AppTheme.bodyText1)
                 ],
               ),
-              Divider(
-                height: 20,
-                thickness: 1,
-              ),
-              Text(article.content ?? '', style: AppTheme.headline4)
-            ],
-          ),
         ))
       ],
     );
@@ -97,7 +83,7 @@ class NewsDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Colors.white,
         body: SafeArea(child: BlocBuilder<DetailBloc, DetailState>(
           builder: (context, state) {
             if (state == null) {
