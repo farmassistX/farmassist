@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:farmassist/app_theme.dart';
 import 'package:farmassist/data/diseases/classifier.dart';
 import 'package:farmassist/data/diseases/disease_detection_model.dart';
 import 'package:farmassist/ui/diseases/diagnosis.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image/image.dart' as img;
 import 'package:image_cropper/image_cropper.dart';
@@ -13,9 +13,9 @@ import 'package:logger/logger.dart';
 import 'package:tflite_flutter_helper/tflite_flutter_helper.dart';
 
 class ViewImageRegion extends StatefulWidget {
-  const ViewImageRegion({@required this.getDisease});
+  const ViewImageRegion({@required this.diagnosis});
 
-  final Diagnosis getDisease;
+  final Diagnosis diagnosis;
 
   @override
   _ViewImageRegionState createState() => _ViewImageRegionState();
@@ -27,39 +27,33 @@ class _ViewImageRegionState extends State<ViewImageRegion> {
   dynamic _pickImageError;
   Classifier _classifier;
   var logger = Logger();
-  Category category;
-  String diseaseLabel;
-  String confidence;
+  Category _category;
 
   void _onImageButtonPressed(ImageSource source, {BuildContext context}) async {
     try {
-      final pickedFile = await ImagePicker().getImage(
-        source: source,
-      );
+      final pickedFile = await ImagePicker().getImage(source: source);
       _image = pickedFile;
       final File _plantImage = File(_image.path);
       File croppedFile = await ImageCropper.cropImage(
-          sourcePath: _plantImage.path,
-          aspectRatioPresets: [
-            CropAspectRatioPreset.square,
-            CropAspectRatioPreset.ratio3x2,
-            CropAspectRatioPreset.original,
-            CropAspectRatioPreset.ratio4x3,
-            CropAspectRatioPreset.ratio16x9
-          ],
-          androidUiSettings: AndroidUiSettings(
-              toolbarTitle: 'Cropper',
-              toolbarColor: Colors.deepOrange,
-              toolbarWidgetColor: Colors.white,
-              initAspectRatio: CropAspectRatioPreset.original,
-              lockAspectRatio: false),
-          iosUiSettings: IOSUiSettings(
-            minimumAspectRatio: 1.0,
-          ));
-      //setState(() {
+        sourcePath: _plantImage.path,
+        aspectRatioPresets: [
+          CropAspectRatioPreset.square,
+          CropAspectRatioPreset.ratio3x2,
+          CropAspectRatioPreset.original,
+          CropAspectRatioPreset.ratio4x3,
+          CropAspectRatioPreset.ratio16x9,
+        ],
+        androidUiSettings: AndroidUiSettings(
+          toolbarTitle: 'Cropper',
+          toolbarColor: Colors.deepOrange,
+          toolbarWidgetColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false,
+        ),
+        iosUiSettings: IOSUiSettings(minimumAspectRatio: 1.0),
+      );
       plantImage = croppedFile;
-      //});
-      _predict(plantImage);
+      _predict(_plantImage);
     } catch (e) {
       setState(() {
         _pickImageError = e;
@@ -71,32 +65,26 @@ class _ViewImageRegionState extends State<ViewImageRegion> {
   void initState() {
     super.initState();
     _classifier = DiseaseDetectionModel();
-    diseaseLabel = '';
-    confidence = '';
   }
 
   void _predict(File image) async {
     img.Image imageInput = img.decodeImage(image.readAsBytesSync());
-    var pred = _classifier.predict(imageInput);
+    var prediction = _classifier.predict(imageInput);
 
     setState(() {
-      this.category = pred;
+      this._category = prediction;
     });
 
-    diseaseLabel = category.label;
-    confidence = category.score.toStringAsFixed(3);
-
-    if (category.score > 0.5) {
-      print('confidence: ');
-      print(category.score);
+    if (_category.score > 0.5) {
       Future.delayed(
         Duration.zero,
-        () => widget.getDisease.update(category.label),
+        () => widget.diagnosis.update(
+            _category.label, (_category.score * 100).toStringAsFixed(2)),
       );
     } else {
       Future.delayed(
         Duration.zero,
-        () => widget.getDisease.update('Healthy'),
+        () => widget.diagnosis.update('Healthy', null),
       );
     }
   }
@@ -107,10 +95,8 @@ class _ViewImageRegionState extends State<ViewImageRegion> {
     });
     Future.delayed(
       Duration.zero,
-      () => widget.getDisease.update('Disease'),
+      () => widget.diagnosis.update('Disease', null),
     );
-    diseaseLabel = '';
-    confidence = '';
   }
 
   @override
@@ -120,14 +106,19 @@ class _ViewImageRegionState extends State<ViewImageRegion> {
         child: Column(
           children: <Widget>[
             Container(
-              color: Colors.grey[300],
               height: 224.0,
               width: 224.0,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.white, width: 20),
+                borderRadius: BorderRadius.circular(18),
+                color: Colors.white,
+              ),
               child: Center(
                 child: plantImage == null
                     ? Text(
-                        'No image selected.',
+                        'No image selected',
                         textAlign: TextAlign.center,
+                        style: AppTheme.bodyText1,
                       )
                     : Image.file(
                         plantImage,
@@ -142,78 +133,45 @@ class _ViewImageRegionState extends State<ViewImageRegion> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  ClipOval(
-                    child: Material(
-                      color: Colors.teal[100],
-                      child: InkWell(
-                        splashColor: Colors.cyan[100],
-                        child: SizedBox(
-                            width: 56,
-                            height: 56,
-                            child: Icon(Icons.add_a_photo_outlined)),
-                        onTap: () {
-                          _onImageButtonPressed(ImageSource.camera,
-                              context: context);
-                        },
-                      ),
+                  _buildButton(
+                    Icon(Icons.add_a_photo_outlined),
+                    () => _onImageButtonPressed(
+                      ImageSource.camera,
+                      context: context,
                     ),
                   ),
-                  ClipOval(
-                    child: Material(
-                      color: Colors.teal[100],
-                      child: InkWell(
-                        splashColor: Colors.cyan[100],
-                        child: SizedBox(
-                            width: 56,
-                            height: 56,
-                            child: Icon(Icons.image_outlined)),
-                        onTap: () {
-                          _onImageButtonPressed(ImageSource.gallery,
-                              context: context);
-                        },
-                      ),
+                  _buildButton(
+                    Icon(Icons.image_outlined),
+                    () => _onImageButtonPressed(
+                      ImageSource.gallery,
+                      context: context,
                     ),
                   ),
-                  ClipOval(
-                    child: Material(
-                      color: Colors.teal[100],
-                      child: InkWell(
-                        splashColor: Colors.cyan[100],
-                        child: SizedBox(
-                            width: 56,
-                            height: 56,
-                            child: Icon(Icons.image_not_supported_outlined)),
-                        onTap: () {
-                          _cancelImage();
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              child: Column(
-                children: <Widget>[
-                  Text(
-                    // category != null ? category.label : '',
-                    diseaseLabel,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    // category != null
-                    //     ? 'Confidence: ${category.score.toStringAsFixed(3)}'
-                    //     : '',
-                    confidence,
-                    style: TextStyle(fontSize: 16),
+                  _buildButton(
+                    Icon(Icons.image_not_supported_outlined),
+                    () => _cancelImage(),
                   ),
                 ],
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildButton(Icon icon, VoidCallback callback) {
+    return ClipOval(
+      child: Material(
+        color: Colors.white,
+        child: InkWell(
+          splashColor: Colors.lightGreenAccent[100],
+          child: SizedBox(
+            width: 56,
+            height: 56,
+            child: icon,
+          ),
+          onTap: callback,
         ),
       ),
     );

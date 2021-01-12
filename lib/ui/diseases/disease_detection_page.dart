@@ -1,6 +1,5 @@
 import 'package:farmassist/ui/diseases/diagnosis.dart';
 import 'package:farmassist/ui/diseases/disease_card.dart';
-import 'package:farmassist/ui/diseases/disease_card_item.dart';
 import 'package:farmassist/ui/diseases/view_image_region.dart';
 import 'package:farmassist/ui/widgets/tab_page.dart';
 import 'package:flutter/material.dart';
@@ -15,41 +14,19 @@ class DiseaseDetectionPage extends TabPage {
 }
 
 class _DiseaseDetectionPageState extends TabPageState<DiseaseDetectionPage> {
-  final List<DiseaseCardItem> _diseaseItem = DiseaseCardItem.diseaseItem;
-  Diagnosis _disease = Diagnosis();
+  Diagnosis _diagnosis = Diagnosis();
 
   void initState() {
-    tabListView.add(ViewImageRegion(
-      getDisease: _disease,
-    ));
-
-    tabListView.add(DiseaseCard(
-      diseaseItem: DiseaseCardItem(
-        diseaseName: 'DISEASE',
-        action: 'Action/Treament Information',
-        treatment: 'Snap or choose an image now for disease detection!',
-        color1: const Color(0XFFFFF176),
-        color2: const Color(0XFF69F0AE),
-        imagePath: 'assets/images/treatment.png',
-      ),
-      getDisease: _disease,
-    ));
-    print('_disease!!!!!');
-    print(Diagnosis().getDisease);
-
+    tabListView.add(ViewImageRegion(diagnosis: _diagnosis));
+    tabListView.add(DiseaseCard());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<Diagnosis>.value(
-      value: _disease,
+      value: _diagnosis,
       child: super.build(context),
     );
-  }
-
-  @override
-  Widget buildTabListView() {
-    return super.buildTabListView();
   }
 }

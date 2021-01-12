@@ -1,28 +1,21 @@
 import 'package:farmassist/app_theme.dart';
 import 'package:farmassist/ui/diseases/diagnosis.dart';
 import 'package:farmassist/ui/diseases/disease_card_item.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DiseaseCard extends StatelessWidget {
-  const DiseaseCard({Key key, this.diseaseItem, this.getDisease})
-      : super(key: key);
-
-  final DiseaseCardItem diseaseItem;
-  final Diagnosis getDisease;
+  const DiseaseCard({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String disease = context.watch<Diagnosis>().getDisease;
+    Diagnosis diagnosis = context.watch<Diagnosis>();
+    String disease = diagnosis.disease;
+    String confidence = diagnosis.confidence;
     int i = 0;
 
-    if (disease == null) {
-      disease = 'DISEASE';
-    } else {
-      for (int j = 0; j < 8; j++) {
-        if (DiseaseCardItem.diseaseItem[j].diseaseName == disease) i = j;
-      }
+    for (int j = 0; j < 8; j++) {
+      if (DiseaseCardItem.diseaseItem[j].diseaseName == disease) i = j;
     }
 
     return Container(
@@ -87,6 +80,40 @@ class DiseaseCard extends StatelessWidget {
                             ),
                           ),
                         ),
+                        Container(
+                          child: confidence == null
+                              ? null
+                              : Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: FractionallySizedBox(
+                                    widthFactor: 0.9,
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: 60,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(18),
+                                        color: AppTheme.white.withOpacity(0.4),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                          right: 6.0,
+                                          left: 6.0,
+                                          top: 12,
+                                          bottom: 12,
+                                        ),
+                                        child: Text(
+                                          'Confidence: $confidence%',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                            letterSpacing: 0.18,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                        ),
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: FractionallySizedBox(
@@ -113,14 +140,8 @@ class DiseaseCard extends StatelessWidget {
                             widthFactor: 0.9,
                             child: Text(
                               DiseaseCardItem.diseaseItem[i].treatment,
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                fontFamily: AppTheme.fontName,
-                                fontWeight: FontWeight.normal,
-                                fontSize: 16,
-                                letterSpacing: 0.0,
-                                color: AppTheme.dark_grey,
-                              ),
+                              textAlign: TextAlign.left,
+                              style: AppTheme.bodyText1,
                             ),
                           ),
                         ),

@@ -9,27 +9,18 @@ import 'package:tflite_flutter_helper/tflite_flutter_helper.dart';
 abstract class Classifier {
   Interpreter interpreter;
   InterpreterOptions _interpreterOptions;
-
   var logger = Logger();
-
   List<int> _inputShape;
   List<int> _outputShape;
-
   TensorImage _inputImage;
   TensorBuffer _outputBuffer;
-
   TfLiteType _outputType = TfLiteType.uint8;
-
   final String _labelsFileName = 'assets/dict.txt';
-
   final int _labelsLength = 6;
-
   var _probabilityProcessor;
-
   List<String> labels;
 
   String get modelName;
-
   NormalizeOp get preProcessNormalizeOp;
   NormalizeOp get postProcessNormalizeOp;
 
@@ -39,21 +30,19 @@ abstract class Classifier {
     if (numThreads != null) {
       _interpreterOptions.threads = numThreads;
     }
-
     loadModel();
     loadLabels();
   }
 
   Future<void> loadModel() async {
     try {
-      interpreter =
-          await Interpreter.fromAsset(modelName, options: _interpreterOptions);
-      print('Interpreter Created Successfully');
-
+      interpreter = await Interpreter.fromAsset(
+        modelName,
+        options: _interpreterOptions,
+      );
       _inputShape = interpreter.getInputTensor(0).shape;
       _outputShape = interpreter.getOutputTensor(0).shape;
       _outputType = interpreter.getOutputTensor(0).type;
-
       _outputBuffer = TensorBuffer.createFixedSize(_outputShape, _outputType);
       _probabilityProcessor =
           TensorProcessorBuilder().add(postProcessNormalizeOp).build();
@@ -75,8 +64,13 @@ abstract class Classifier {
     int cropSize = min(_inputImage.height, _inputImage.width);
     return ImageProcessorBuilder()
         .add(ResizeWithCropOrPadOp(cropSize, cropSize))
-        .add(ResizeOp(
-            _inputShape[1], _inputShape[2], ResizeMethod.NEAREST_NEIGHBOUR))
+        .add(
+          ResizeOp(
+            _inputShape[1],
+            _inputShape[2],
+            ResizeMethod.NEAREST_NEIGHBOUR,
+          ),
+        )
         .add(preProcessNormalizeOp)
         .build()
         .process(_inputImage);
@@ -84,27 +78,17 @@ abstract class Classifier {
 
   Category predict(Image image) {
     if (interpreter == null) {
-      throw StateError('Cannot run inference, Intrepreter is null');
+      throw StateError('Cannot run inference, Interpreter is null');
     }
-    final pres = DateTime.now().millisecondsSinceEpoch;
     _inputImage = TensorImage.fromImage(image);
     _inputImage = _preProcess();
-    final pre = DateTime.now().millisecondsSinceEpoch - pres;
-
-    print('Time to load image: $pre ms');
-
-    final runs = DateTime.now().millisecondsSinceEpoch;
     interpreter.run(_inputImage.buffer, _outputBuffer.getBuffer());
-    final run = DateTime.now().millisecondsSinceEpoch - runs;
-
-    print('Time to run inference: $run ms');
-
     Map<String, double> labeledProb = TensorLabel.fromList(
-            labels, _probabilityProcessor.process(_outputBuffer))
-        .getMapWithFloatValue();
-    final pred = getTopProbability(labeledProb);
-
-    return Category(pred.key, pred.value);
+      labels,
+      _probabilityProcessor.process(_outputBuffer),
+    ).getMapWithFloatValue();
+    final prediction = getTopProbability(labeledProb);
+    return Category(prediction.key, prediction.value);
   }
 
   void close() {
@@ -117,7 +101,6 @@ abstract class Classifier {
 MapEntry<String, double> getTopProbability(Map<String, double> labeledProb) {
   var pq = PriorityQueue<MapEntry<String, double>>(compare);
   pq.addAll(labeledProb.entries);
-
   return pq.first;
 }
 
