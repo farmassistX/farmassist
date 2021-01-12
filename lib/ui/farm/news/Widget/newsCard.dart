@@ -1,9 +1,9 @@
 import 'package:farmassist/data/farm/models/News.dart';
 import 'package:farmassist/ui/farm/news_details/bloc/bloc.dart';
+import 'package:farmassist/ui/farm/news_details/newsDetailPage.dart';
 import 'package:farmassist/ui/widgets/news_customWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:farmassist/ui/farm/news_details/newsDetailPage.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../../app_theme.dart';
@@ -43,8 +43,8 @@ class NewsCard extends StatelessWidget {
               context,
               PageTransition(
                   type: PageTransitionType.leftToRightWithFade,
-                  child: NewsDetailPage()
-              ));;
+                  child: NewsDetailPage()));
+          ;
         },
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20),
@@ -73,38 +73,38 @@ class NewsCard extends StatelessWidget {
               SizedBox(width: 10),
               Expanded(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  SizedBox(),
+                  Container(
+                    height: 52,
+                    child: Text(
+                      artical.title,
+                      style: Theme.of(context).textTheme.bodyText1,
+                      overflow: TextOverflow.fade,
+                    ),
+                  ),
+                  Row(
                     children: <Widget>[
-                      SizedBox(),
                       Container(
-                        height: 52,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: Colors.black,
+                        ),
                         child: Text(
-                          artical.title,
-                          style: Theme.of(context).textTheme.bodyText1,
-                          overflow: TextOverflow.fade,
+                          '$type',
+                          style:
+                              AppTheme.headline6.copyWith(color: Colors.white),
                         ),
                       ),
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            padding:
-                                EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Colors.black,
-                            ),
-                            child: Text(
-                              '$type',
-                              style: AppTheme.headline6.copyWith(
-                                  color: Colors.white),
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(left: 10),
-                            child: Text(artical.getDateOnly(),
-                                style: AppTheme.subtitle2),
-                          ),
-                        ],
+                      Container(
+                        padding: EdgeInsets.only(left: 10),
+                        child: Text(artical.getDateOnly(),
+                            style: AppTheme.subtitle2),
+                      ),
+                    ],
                   )
                 ],
               ))

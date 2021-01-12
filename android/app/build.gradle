@@ -40,7 +40,7 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.farmassist"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 29
         multiDexEnabled true
         versionCode flutterVersionCode.toInteger()
@@ -54,6 +54,12 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    //TFlite model
+    aaptOptions {
+        noCompress 'tflite'
+        noCompress 'lite'
+    }
 }
 
 flutter {
@@ -65,6 +71,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:26.1.1')
     implementation 'com.google.firebase:firebase-firestore'
     implementation 'com.android.support:multidex:1.0.3'
+    api 'com.google.firebase:firebase-ml-vision-image-label-model:17.0.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

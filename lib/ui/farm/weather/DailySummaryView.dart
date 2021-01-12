@@ -3,7 +3,6 @@ import 'package:farmassist/data/farm/utils/weather_temp.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-
 class DailySummaryView extends StatelessWidget {
   final Weather weather;
 
@@ -14,7 +13,7 @@ class DailySummaryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dayOfWeek =
-    toBeginningOfSentenceCase(DateFormat('EEE').format(this.weather.date));
+        toBeginningOfSentenceCase(DateFormat('EEE').format(this.weather.date));
 
     return Padding(
         padding: EdgeInsets.all(15),
@@ -39,9 +38,7 @@ class DailySummaryView extends StatelessWidget {
                 padding: EdgeInsets.only(left: 5),
                 child: Container(
                     alignment: Alignment.center,
-                    child: new Icon(weather.getIconData(weather.iconCode))
-                )
-            )
+                    child: new Icon(weather.getIconData(weather.iconCode))))
           ],
         ));
   }

@@ -1,5 +1,4 @@
 import 'package:farmassist/data/farm/models/Weather.dart';
-import 'package:farmassist/data/farm/utils/WeatherIconMapper.dart';
 import 'package:farmassist/data/farm/view_model/weather_app_forecast_viewmodel.dart';
 import 'package:flutter/material.dart';
 
@@ -13,21 +12,18 @@ class WeatherSummary extends StatelessWidget {
 
   WeatherSummary(
       {Key key,
-        @required this.model,
-        @required this.condition,
-        @required this.temp,
-        @required this.feelsLike,
-        @required this.isdayTime,
-        @required this.iconData
-      })
+      @required this.model,
+      @required this.condition,
+      @required this.temp,
+      @required this.feelsLike,
+      @required this.isdayTime,
+      @required this.iconData})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
         Container(
           padding: EdgeInsets.only(bottom: 20.0),
           child: Column(
@@ -53,7 +49,10 @@ class WeatherSummary extends StatelessWidget {
         ),
         Container(
           padding: EdgeInsets.only(bottom: 30.0),
-          child: new Icon(iconData, size: 60.0,),
+          child: new Icon(
+            iconData,
+            size: 60.0,
+          ),
         )
       ]),
     );

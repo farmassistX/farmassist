@@ -32,6 +32,11 @@ dependencies:
   provider: "^4.0.0"
   page_view_indicator: "^2.0.4"
   flutter_clean_calendar: "^1.0.2+1"
+  image_picker: "^0.6.7+21"
+  image_cropper: "^1.3.1"
+  tflite_flutter: "^0.5.0"
+  tflite_flutter_helper: "^0.1.2"
+  logger: "^0.9.4"
 
 dev_dependencies:
   flutter_test:
@@ -41,6 +46,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/model.tflite
+    - assets/dict.txt
 
   fonts:
     - family: WeatherIcons

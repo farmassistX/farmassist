@@ -1,10 +1,8 @@
-import 'package:farmassist/data/farm/repositories/harvest_storeData.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:getwidget/components/appbar/gf_appbar.dart';
 import 'package:getwidget/components/button/gf_icon_button.dart';
 import 'package:getwidget/types/gf_button_type.dart';
-import 'package:intl/intl.dart';
 
 import '../../../app_theme.dart';
 
@@ -18,21 +16,27 @@ class DisplayHarvesting extends StatefulWidget {
   final String plantQuantity;
   final int plantMonth;
 
-  DisplayHarvesting({
-    this.documentID,
-    this.plantName,
-    this.plantNo,
-    this.plantDate,
-    this.plantEstimate,
-    this.plantHarvest,
-    this.plantMonth,
-    this.plantQuantity
-  });
+  DisplayHarvesting(
+      {this.documentID,
+      this.plantName,
+      this.plantNo,
+      this.plantDate,
+      this.plantEstimate,
+      this.plantHarvest,
+      this.plantMonth,
+      this.plantQuantity});
 
   @override
-  _DisplayHarvestingState createState() =>_DisplayHarvestingState(
-      name:plantName, no:plantNo, date:plantDate, estimate:plantEstimate, harvest: plantHarvest, id: documentID, month: plantMonth, quantity: plantQuantity,
-  );
+  _DisplayHarvestingState createState() => _DisplayHarvestingState(
+        name: plantName,
+        no: plantNo,
+        date: plantDate,
+        estimate: plantEstimate,
+        harvest: plantHarvest,
+        id: documentID,
+        month: plantMonth,
+        quantity: plantQuantity,
+      );
 }
 
 class _DisplayHarvestingState extends State<DisplayHarvesting> {
@@ -47,16 +51,15 @@ class _DisplayHarvestingState extends State<DisplayHarvesting> {
   final int month;
   final String quantity;
 
-  _DisplayHarvestingState({
-    this.id,
-    this.name,
-    this.no,
-    this.date,
-    this.estimate,
-    this.harvest,
-    this.month,
-    this.quantity
-  });
+  _DisplayHarvestingState(
+      {this.id,
+      this.name,
+      this.no,
+      this.date,
+      this.estimate,
+      this.harvest,
+      this.month,
+      this.quantity});
 
   @override
   Widget build(BuildContext context) {
@@ -72,10 +75,12 @@ class _DisplayHarvestingState extends State<DisplayHarvesting> {
             },
             type: GFButtonType.transparent,
           ),
-          title: Text("View Harvesting Entry",
+          title: Text(
+            "View Harvesting Entry",
             style: TextStyle(
               color: AppTheme.nearlyWhite,
-            ),),
+            ),
+          ),
           backgroundColor: AppTheme.pastelGreen,
         ),
         body: Container(
@@ -174,7 +179,6 @@ class _DisplayHarvestingState extends State<DisplayHarvesting> {
               )
             ],
           ),
-        )
-    );
+        ));
   }
 }
