@@ -209,7 +209,7 @@ class _StoreHarvestingState extends State<StoreHarvesting> {
                               if (_formKey.currentState.validate()) {
                                 print(_formKey.currentState.value);
                                 print(id);
-                                updatePlanting(month, id);
+                                updatePlanting(id);
                                 harvestData(_formKey.currentState.value);
                                 Navigator.pop(context);
                               } else {

@@ -22,9 +22,14 @@ class HarvestList extends StatefulWidget {
 class _HarvestListState extends State<HarvestList> {
   FirebaseAuth _auth = FirebaseAuth.instance;
 
-  final _monthOptions = ["January","February"];
+  final _monthOptions =
+    ['January', 'February', 'March', 'April', 'May','June','July','August','September','October','November','December'];
   var _option;
   String uid = "";
+
+  convert(month){
+    return (_monthOptions.indexOf(month)+1);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +81,7 @@ class _HarvestListState extends State<HarvestList> {
           },
           type: GFButtonType.transparent,
         ),
-        title: Text("Create Harvesting Entry",
+        title: Text("View Harvesting Entry",
           style: TextStyle(
             color: AppTheme.nearlyBlack,
           ),),
@@ -84,7 +89,9 @@ class _HarvestListState extends State<HarvestList> {
       ),
       body: _option!=null?(
           StreamBuilder<QuerySnapshot>(
-            stream: widget.db.collection("Harvesting").doc(uid).collection(_option).where('month', isNotEqualTo: -99).snapshots(),
+            stream: widget.db.collection('harvesting').doc(uid).collection('month')
+                .where('month', isNotEqualTo: -99).where('month',isEqualTo: convert(_option))
+                .snapshots(),
             builder: (context, snapshot){
               if(!snapshot.hasData) {
                 return Text('Loading...');

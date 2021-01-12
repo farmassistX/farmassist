@@ -83,7 +83,10 @@ class ForecastViewModel with ChangeNotifier {
   }
 
   void updateModel(Forecast forecast, String city) {
-    if (isRequestError) return;
+    if (isRequestError){
+      _daily=null;
+      return;
+    }
 
     _condition = forecast.current.condition;
     _city = forecast.city;

@@ -127,6 +127,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.6"
+  date_utils:
+    dependency: transitive
+    description:
+      name: date_utils
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0+3"
   datetime_picker_formfield:
     dependency: transitive
     description:
@@ -279,6 +286,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.9.5"
+  flutter_clean_calendar:
+    dependency: "direct main"
+    description:
+      name: flutter_clean_calendar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2+1"
   flutter_colorpicker:
     dependency: transitive
     description:

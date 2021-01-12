@@ -116,7 +116,7 @@ class _LoginButton extends StatelessWidget {
                   ),
                   color: const Color(0xFFFFD600),
                   onPressed: () =>
-                      context.read<LoginCubit>().logInWithCredentials(),
+                    context.read<LoginCubit>().logInWithCredentials(),
                 ),
               );
       },

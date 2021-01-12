@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:farmassist/data/farm/utils/weather_strings.dart';
 import 'package:farmassist/ui/farm/planting/display_planting.dart';
+import 'package:farmassist/ui/farm/statistics/utils/getEvents.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,8 +25,14 @@ class _PlantingListState extends State<PlantingList> {
   FirebaseAuth _auth = FirebaseAuth.instance;
 
   final _monthOptions = ["January","February"];
+  List months =
+  ['January', 'February', 'March', 'April', 'May','June','July','August','September','October','November','December'];
   var _option;
   String uid = "";
+
+  convert(month){
+    return (months.indexOf(month)+1);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +53,7 @@ class _PlantingListState extends State<PlantingList> {
                       print(_option);
                       User user = _auth.currentUser;
                       setState(() {
-                        _option = value;
+                        _option = convert(value);
                         uid = user.uid;
                       });
                       print(_option);
@@ -56,7 +63,7 @@ class _PlantingListState extends State<PlantingList> {
                     hint: Text('Select Month'),
                     validator: FormBuilderValidators.compose(
                         [FormBuilderValidators.required(context)]),
-                    items: _monthOptions
+                    items: months
                         .map((month) => DropdownMenuItem(
                       value: month,
                       child: Text('$month'),
@@ -85,7 +92,8 @@ class _PlantingListState extends State<PlantingList> {
       ),
       body: _option!=null?(
         StreamBuilder<QuerySnapshot>(
-          stream: widget.db.collection("Planting").doc(uid).collection(_option).orderBy('date', descending:true).snapshots(),
+          stream: widget.db.collection("planting").doc(uid).collection('month').where('month', isEqualTo: _option)
+              .orderBy('day', descending: true).snapshots(),
           builder: (context, snapshot){
             if(!snapshot.hasData) {
               return Text('Loading...');

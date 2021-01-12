@@ -1,3 +1,4 @@
+import 'package:farmassist/ui/farm/statistics/statistics_page1.dart';
 import 'package:farmassist/ui/farm/weather/statistics_weatherHome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +64,7 @@ class _StatisticsHomeState extends State<StatisticsHome> {
                 pageSnapping: true,
                 controller: _pageController,
                 children: [
-                  WeatherHomeStatistics(),
+                  StatisticsPageOne(),
                   Container(color: Colors.yellow),
                   Container(color: Colors.blue,)
                 ],

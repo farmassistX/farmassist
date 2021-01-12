@@ -24,7 +24,8 @@ class PlantingSelectionList extends StatefulWidget {
 class _PlantingSelectionListState extends State<PlantingSelectionList> {
   FirebaseAuth _auth = FirebaseAuth.instance;
 
-  final _monthOptions = ["January","February"];
+  final _monthOptions =
+  ['January', 'February', 'March', 'April', 'May','June','July','August','September','October','November','December'];
   var _option;
   String uid = "";
 
@@ -86,7 +87,8 @@ class _PlantingSelectionListState extends State<PlantingSelectionList> {
       ),
       body: _option!=null?(
           StreamBuilder<QuerySnapshot>(
-            stream: widget.db.collection("Planting").doc(uid).collection(_option).where('harvested', isEqualTo: false).snapshots(),
+            stream: widget.db.collection('planting').doc(uid).collection('month').where('harvested', isEqualTo: false)
+                .where('monthEN', isEqualTo: _option).orderBy('day', descending: true).snapshots(),
             builder: (context, snapshot){
               if(!snapshot.hasData) {
                 return Text('Loading...');

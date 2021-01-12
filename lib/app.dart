@@ -5,6 +5,7 @@ import 'package:farmassist/data/farm/resources/repository.dart';
 import 'package:farmassist/ui/farm/news/bloc/nBloc.dart';
 import 'package:farmassist/ui/farm/news/bloc/nEvent.dart';
 import 'package:farmassist/ui/farm/news_details/bloc/dBloc.dart';
+import 'package:farmassist/ui/farm/statistics/utils/getEvents.dart';
 import 'package:farmassist/ui/home_page.dart';
 import 'package:farmassist/ui/login/login_page.dart';
 import 'package:farmassist/ui/splash_page.dart';

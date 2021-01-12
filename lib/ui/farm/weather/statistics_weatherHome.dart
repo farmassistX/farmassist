@@ -28,7 +28,7 @@ class _WeatherHomeStatisticsState extends State<WeatherHomeStatistics> {
   Widget buildHomeView(BuildContext context, model) {
     return Consumer<ForecastViewModel>(
         builder: (context, weatherViewModel, child) => Container(
-            height: 225,
+            height: 160,
             child: ListView(
               children: <Widget>[
                 weatherViewModel.daily==null
@@ -36,8 +36,9 @@ class _WeatherHomeStatisticsState extends State<WeatherHomeStatistics> {
                     child: Text('Ooops...something went wrong',
                         style: TextStyle(
                             fontSize: 21, color: Colors.white)))
-                    : Container(child:
+                    : Column(children:[
                   buildDailySummary(weatherViewModel.daily)
+                  ],
                 ),
               ],
             )
@@ -46,13 +47,29 @@ class _WeatherHomeStatisticsState extends State<WeatherHomeStatistics> {
   }
 
   Widget buildDailySummary(List<Weather> dailyForecast) {
-    return Row(
+    print(dailyForecast);
+    return Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: dailyForecast
-            .map((item) => new DailySummaryView(
-          weather: item,
-        ))
-            .toList());
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              DailySummaryView(weather: dailyForecast[0]),
+              DailySummaryView(weather: dailyForecast[1]),
+              DailySummaryView(weather: dailyForecast[2]),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              DailySummaryView(weather: dailyForecast[3]),
+              DailySummaryView(weather: dailyForecast[4]),
+              DailySummaryView(weather: dailyForecast[5]),
+            ],
+          )
+        ]
+    );
   }
 
   Widget buildBusyIndicator() {

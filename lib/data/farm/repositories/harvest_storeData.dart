@@ -9,24 +9,15 @@ User user = auth.currentUser;
 final uid = user.uid;
 
 void harvestData(Map<String, dynamic> obj){
-  var month;
 
   DateTime harvestDt = obj['harvestDate'];
-  print(harvestDt.month);
-
-  if(harvestDt.month==1){
-    month="January";
-  }
-  else{
-    month="February";
-  }
 
   final DateFormat formatter = DateFormat('dd-MM-yyyy');
   final String harvestDate = formatter.format(harvestDt);
 
 
   CollectionReference cr =
-  db.collection("Harvesting").doc(uid).collection(month);
+  db.collection("harvesting").doc(uid).collection('month');
 
   Map<String, dynamic> data = {
     "name": obj['plantName'],
@@ -44,18 +35,10 @@ void harvestData(Map<String, dynamic> obj){
   cr.doc().set(data);
 }
 
-void updatePlanting(int monthInt, String id){
-  var month;
-
-  if(monthInt==1){
-    month="January";
-  }
-  else{
-    month="February";
-  }
+void updatePlanting(String id){
 
   CollectionReference cr =
-  db.collection("Planting").doc(uid).collection(month);
+  db.collection("planting").doc(uid).collection('month');
   
   cr.doc(id).update({
     "harvested": true
