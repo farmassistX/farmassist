@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:getwidget/components/appbar/gf_appbar.dart';
 import 'package:getwidget/components/button/gf_icon_button.dart';
 import 'package:getwidget/types/gf_button_type.dart';
-import 'package:page_view_indicator/page_view_indicator.dart';
 
 import '../../../app_theme.dart';
 
@@ -21,16 +20,20 @@ class _StatisticsHomeState extends State<StatisticsHome> {
 
   @override
   void initState() {
-    _pageController.addListener((){
+    _pageController.addListener(() {
       setState(() => _currentPage = _pageController.page);
     });
     super.initState();
   }
 
-  Widget _pageViewIndicator(int location){
+  Widget _pageViewIndicator(int location) {
     return Padding(
       padding: const EdgeInsets.only(right: 6.0, left: 6),
-      child: Icon(Icons.lens,size: 14,color: location - 1 <= _currentPage&& _currentPage < location ? Colors.blue[900] : Colors.grey[600]),
+      child: Icon(Icons.lens,
+          size: 14,
+          color: location - 1 <= _currentPage && _currentPage < location
+              ? Colors.blue[900]
+              : Colors.grey[600]),
     );
   }
 
@@ -39,49 +42,52 @@ class _StatisticsHomeState extends State<StatisticsHome> {
     PageController pageController = PageController(initialPage: 0);
 
     return Scaffold(
-      appBar: GFAppBar(
-        leading: GFIconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
+        appBar: GFAppBar(
+          leading: GFIconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            type: GFButtonType.transparent,
           ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          type: GFButtonType.transparent,
+          title: Text(
+            "View Statistics",
+            style: TextStyle(
+              color: AppTheme.nearlyWhite,
+            ),
+          ),
+          backgroundColor: AppTheme.pastelGreen,
         ),
-        title: Text("View Statistics",
-          style: TextStyle(
-            color: AppTheme.nearlyWhite,
-          ),),
-        backgroundColor: AppTheme.pastelGreen,
-      ),
-      body: Column(
-        children: [
-          new Expanded(
+        body: Column(
+          children: [
+            new Expanded(
               child: PageView(
                 pageSnapping: true,
                 controller: _pageController,
                 children: [
                   WeatherHomeStatistics(),
                   Container(color: Colors.yellow),
-                  Container(color: Colors.blue,)
+                  Container(
+                    color: Colors.blue,
+                  )
                 ],
               ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(14.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                _pageViewIndicator(1),
-                _pageViewIndicator(2),
-                _pageViewIndicator(3),
-              ],
             ),
-          ),
-        ],
-      )
-    );
+            Padding(
+              padding: const EdgeInsets.all(14.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  _pageViewIndicator(1),
+                  _pageViewIndicator(2),
+                  _pageViewIndicator(3),
+                ],
+              ),
+            ),
+          ],
+        ));
   }
 }

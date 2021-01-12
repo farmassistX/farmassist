@@ -1,10 +1,10 @@
+import 'package:farmassist/app_theme.dart';
 import 'package:farmassist/ui/farm/harvesting/harvesting_list.dart';
 import 'package:farmassist/ui/farm/harvesting/planting_selection_list.dart';
 import 'package:flutter/material.dart';
-import 'package:farmassist/app_theme.dart';
-import 'package:getwidget/getwidget.dart';
 import 'package:getwidget/components/appbar/gf_appbar.dart';
 import 'package:getwidget/components/button/gf_icon_button.dart';
+import 'package:getwidget/getwidget.dart';
 import 'package:getwidget/types/gf_button_type.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -42,55 +42,54 @@ class _HarvestMenuState extends State<HarvestMenu> {
           body: ListView(
             children: [
               Container(
-                padding: EdgeInsets.only(top:15.00),
+                padding: EdgeInsets.only(top: 15.00),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     InkWell(
-                      onTap: (){
+                      onTap: () {
                         Navigator.push(
                             context,
                             PageTransition(
-                                type: PageTransitionType.leftToRightWithFade,
-                                child: PlantingSelectionList(),
+                              type: PageTransitionType.leftToRightWithFade,
+                              child: PlantingSelectionList(),
                             ));
                       },
                       child: GFCard(
                         boxFit: BoxFit.cover,
-                        image: Image.asset(
-                            'assets/images/harvesting_create.jpg'
-                        ),
+                        image:
+                            Image.asset('assets/images/harvesting_create.jpg'),
                         title: GFListTile(
-                          titleText:'Create Harvesting',
+                          titleText: 'Create Harvesting',
                           subtitle: Text("Record a new harvesting activity."),
                           icon: Icon(Icons.arrow_forward),
                         ),
                       ),
-                    ) ,
+                    ),
                     InkWell(
-                      onTap: (){
+                      onTap: () {
                         Navigator.push(
                             context,
                             PageTransition(
-                                type: PageTransitionType.leftToRightWithFade,
-                                child: HarvestList(),
+                              type: PageTransitionType.leftToRightWithFade,
+                              child: HarvestList(),
                             ));
                       },
                       child: GFCard(
                         boxFit: BoxFit.cover,
-                        image: Image.asset(
-                            'assets/images/harvesting_view.jfif'
-                        ),
+                        image:
+                            Image.asset('assets/images/harvesting_view.jfif'),
                         title: GFListTile(
-                          titleText:'View Harvesting',
-                          subtitle: Text("Take a look at all your previous records."),
+                          titleText: 'View Harvesting',
+                          subtitle:
+                              Text("Take a look at all your previous records."),
                           icon: Icon(Icons.arrow_forward),
                         ),
                       ),
-                    ) ,
+                    ),
                   ],
-                ) ,
+                ),
               )
             ],
           )),

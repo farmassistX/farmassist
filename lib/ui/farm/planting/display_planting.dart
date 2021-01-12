@@ -22,7 +22,11 @@ class DisplayPlanting extends StatefulWidget {
 
   @override
   _DisplayPlantingState createState() => _DisplayPlantingState(
-      name:plantName, no:plantNo, date:plantDate, estimate:plantEstimate, harvest: plantHarvest);
+      name: plantName,
+      no: plantNo,
+      date: plantDate,
+      estimate: plantEstimate,
+      harvest: plantHarvest);
 }
 
 class _DisplayPlantingState extends State<DisplayPlanting> {
@@ -54,16 +58,18 @@ class _DisplayPlantingState extends State<DisplayPlanting> {
             },
             type: GFButtonType.transparent,
           ),
-          title: Text("View Planting Entry",
+          title: Text(
+            "View Planting Entry",
             style: TextStyle(
               color: AppTheme.nearlyWhite,
-            ),),
+            ),
+          ),
           backgroundColor: AppTheme.pastelGreen,
         ),
         body: Container(
           padding: EdgeInsets.all(5.0),
           child: Column(
-            children: <Widget> [
+            children: <Widget>[
               new Expanded(
                 child: ListView(
                   padding: EdgeInsets.all(10.0),
@@ -141,7 +147,6 @@ class _DisplayPlantingState extends State<DisplayPlanting> {
               )
             ],
           ),
-        )
-    );
+        ));
   }
 }

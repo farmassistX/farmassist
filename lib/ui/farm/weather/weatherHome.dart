@@ -27,31 +27,29 @@ class _WeatherHomeState extends State<WeatherHome> {
   Widget buildHomeView(BuildContext context, model) {
     return Consumer<ForecastViewModel>(
         builder: (context, weatherViewModel, child) => Container(
-          height: 225,
+            height: 225,
             child: ListView(
               children: <Widget>[
                 CityEntryView(),
                 weatherViewModel.isRequestPending
                     ? buildBusyIndicator()
                     : weatherViewModel.isRequestError
-                    ? Center(
-                    child: Text('Ooops...something went wrong',
-                        style: TextStyle(
-                            fontSize: 21, color: Colors.white)))
-                    : Column(children: [
-                  WeatherSummary(
-                    condition: weatherViewModel.condition,
-                    temp: weatherViewModel.temp,
-                    feelsLike: weatherViewModel.feelsLike,
-                    isdayTime: weatherViewModel.isDaytime,
-                    iconData: weatherViewModel.iconData,
-                    // weatherModel: model,
-                  ),
-                ]),
+                        ? Center(
+                            child: Text('Ooops...something went wrong',
+                                style: TextStyle(
+                                    fontSize: 21, color: Colors.white)))
+                        : Column(children: [
+                            WeatherSummary(
+                              condition: weatherViewModel.condition,
+                              temp: weatherViewModel.temp,
+                              feelsLike: weatherViewModel.feelsLike,
+                              isdayTime: weatherViewModel.isDaytime,
+                              iconData: weatherViewModel.iconData,
+                              // weatherModel: model,
+                            ),
+                          ]),
               ],
-            )
-        )
-    );
+            )));
   }
 
   Widget buildBusyIndicator() {

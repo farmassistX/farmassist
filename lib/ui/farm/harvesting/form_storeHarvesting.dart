@@ -29,8 +29,13 @@ class StoreHarvesting extends StatefulWidget {
 
   @override
   _StoreHarvestingState createState() => _StoreHarvestingState(
-      name:plantName, no:plantNo, date:plantDate, estimate:plantEstimate, harvest: plantHarvest, id: documentID, month: plantMonth
-  );
+      name: plantName,
+      no: plantNo,
+      date: plantDate,
+      estimate: plantEstimate,
+      harvest: plantHarvest,
+      id: documentID,
+      month: plantMonth);
 }
 
 class _StoreHarvestingState extends State<StoreHarvesting> {
@@ -68,16 +73,18 @@ class _StoreHarvestingState extends State<StoreHarvesting> {
             },
             type: GFButtonType.transparent,
           ),
-          title: Text("Create Harvesting Entry",
+          title: Text(
+            "Create Harvesting Entry",
             style: TextStyle(
               color: AppTheme.nearlyWhite,
-            ),),
+            ),
+          ),
           backgroundColor: AppTheme.pastelGreen,
         ),
         body: Container(
           padding: EdgeInsets.all(5.0),
           child: Column(
-            children: <Widget> [
+            children: <Widget>[
               new Expanded(
                 child: ListView(
                   padding: EdgeInsets.all(10.0),
@@ -150,8 +157,8 @@ class _StoreHarvestingState extends State<StoreHarvesting> {
                           ),
                           SizedBox(height: 10),
                           Divider(
-                              color: Colors.black,
-                              height: 10.0,
+                            color: Colors.black,
+                            height: 10.0,
                           ),
                           SizedBox(height: 10),
                           FormBuilderTextField(
@@ -225,7 +232,6 @@ class _StoreHarvestingState extends State<StoreHarvesting> {
               )
             ],
           ),
-        )
-    );
+        ));
   }
 }

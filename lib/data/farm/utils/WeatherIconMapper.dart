@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 class _IconData extends IconData {
   const _IconData(int codePoint)
       : super(
-    codePoint,
-    fontFamily: 'WeatherIcons',
-  );
+          codePoint,
+          fontFamily: 'WeatherIcons',
+        );
 }
+
 /// Exposes specific weather icons
 /// Has all weather conditions specified by open weather maps API
 /// https://openweathermap.org/weather-conditions

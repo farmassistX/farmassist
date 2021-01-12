@@ -22,7 +22,7 @@ class HarvestList extends StatefulWidget {
 class _HarvestListState extends State<HarvestList> {
   FirebaseAuth _auth = FirebaseAuth.instance;
 
-  final _monthOptions = ["January","February"];
+  final _monthOptions = ["January", "February"];
   var _option;
   String uid = "";
 
@@ -41,7 +41,7 @@ class _HarvestListState extends State<HarvestList> {
                   decoration: InputDecoration(
                     labelText: 'Month',
                   ),
-                  onChanged: (value){
+                  onChanged: (value) {
                     print(_option);
                     User user = _auth.currentUser;
                     setState(() {
@@ -57,9 +57,9 @@ class _HarvestListState extends State<HarvestList> {
                       [FormBuilderValidators.required(context)]),
                   items: _monthOptions
                       .map((month) => DropdownMenuItem(
-                    value: month,
-                    child: Text('$month'),
-                  ))
+                            value: month,
+                            child: Text('$month'),
+                          ))
                       .toList(),
                 ),
               )
@@ -76,62 +76,76 @@ class _HarvestListState extends State<HarvestList> {
           },
           type: GFButtonType.transparent,
         ),
-        title: Text("Create Harvesting Entry",
+        title: Text(
+          "Create Harvesting Entry",
           style: TextStyle(
             color: AppTheme.nearlyBlack,
-          ),),
+          ),
+        ),
         backgroundColor: AppTheme.nearlyWhite,
       ),
-      body: _option!=null?(
-          StreamBuilder<QuerySnapshot>(
-            stream: widget.db.collection("Harvesting").doc(uid).collection(_option).where('month', isNotEqualTo: -99).snapshots(),
-            builder: (context, snapshot){
-              if(!snapshot.hasData) {
-                return Text('Loading...');
-              }
-              return Column(
-                children: [
-                  new Expanded(child: ListView.builder(
-                      itemCount: snapshot.data.docs.length,
-                      itemBuilder: (context,index){
-                        String itemTitle = snapshot.data.docs[index]['name'];
-                        String date = snapshot.data.docs[index]['harvestDate'];
-                        String harvest = snapshot.data.docs[index]['harvestDate'];
-                        String number = snapshot.data.docs[index]['noOfPlants'];
-                        double est = snapshot.data.docs[index]['estimatedHarvest'];
-                        String yield = snapshot.data.docs[index]['harvestQuantity'];
-                        return GFListTile(
-                          padding: EdgeInsets.all(10.0),
-                          titleText: Strings.toTitleCase(itemTitle),
-                          subtitleText: date,
-                          color: Colors.blueGrey[100],
-                          icon: Icon(Icons.chevron_right),
-                          onTap: (){
-                            Navigator.push(
-                                context,
-                                PageTransition(
-                                    type: PageTransitionType.leftToRightWithFade,
-                                    child: DisplayHarvesting(
-                                      plantName: itemTitle,
-                                      plantDate: date,
-                                      plantQuantity: yield,
-                                      plantEstimate: est,
-                                      plantNo: number,
-                                      plantHarvest: harvest,
-                                    )
-                                ));
-                          },
-                        );
-                      }))
-                ],
-              );
-            },
-          )
-      ):Container(
-        child: Center(
-          child: Text("Please select a month."),
-        ),
-      ),
+      body: _option != null
+          ? (StreamBuilder<QuerySnapshot>(
+              stream: widget.db
+                  .collection("Harvesting")
+                  .doc(uid)
+                  .collection(_option)
+                  .where('month', isNotEqualTo: -99)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Text('Loading...');
+                }
+                return Column(
+                  children: [
+                    new Expanded(
+                        child: ListView.builder(
+                            itemCount: snapshot.data.docs.length,
+                            itemBuilder: (context, index) {
+                              String itemTitle =
+                                  snapshot.data.docs[index]['name'];
+                              String date =
+                                  snapshot.data.docs[index]['harvestDate'];
+                              String harvest =
+                                  snapshot.data.docs[index]['harvestDate'];
+                              String number =
+                                  snapshot.data.docs[index]['noOfPlants'];
+                              double est =
+                                  snapshot.data.docs[index]['estimatedHarvest'];
+                              String yield =
+                                  snapshot.data.docs[index]['harvestQuantity'];
+                              return GFListTile(
+                                padding: EdgeInsets.all(10.0),
+                                titleText: Strings.toTitleCase(itemTitle),
+                                subtitleText: date,
+                                color: Colors.blueGrey[100],
+                                icon: Icon(Icons.chevron_right),
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      PageTransition(
+                                          type: PageTransitionType
+                                              .leftToRightWithFade,
+                                          child: DisplayHarvesting(
+                                            plantName: itemTitle,
+                                            plantDate: date,
+                                            plantQuantity: yield,
+                                            plantEstimate: est,
+                                            plantNo: number,
+                                            plantHarvest: harvest,
+                                          )));
+                                },
+                              );
+                            }))
+                  ],
+                );
+              },
+            ))
+          : Container(
+              child: Center(
+                child: Text("Please select a month."),
+              ),
+            ),
     );
   }
 }

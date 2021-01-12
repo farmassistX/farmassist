@@ -2,7 +2,6 @@ import 'package:farmassist/app_theme.dart';
 import 'package:farmassist/data/farm/models/News.dart';
 import 'package:farmassist/ui/widgets/news_customWidget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'Widget/newsCard.dart';
@@ -54,8 +53,7 @@ class HomePage extends StatelessWidget {
           centerTitle: true,
           title: Text(
             '${type.toUpperCase()} NEWS',
-            style: AppTheme.headline5
-                .copyWith(color: Colors.black),
+            style: AppTheme.headline5.copyWith(color: Colors.black),
           ),
           backgroundColor: Colors.white,
           elevation: 10.0,

@@ -1,10 +1,9 @@
 import 'dart:convert';
+
+import 'package:farmassist/data/farm/models/Forecast.dart';
+import 'package:farmassist/data/farm/models/Location.dart';
 import 'package:farmassist/data/farm/services/weather_api.dart';
 import 'package:http/http.dart' as http;
-import 'package:farmassist/data/farm/models/Forecast.dart';
-import 'dart:developer';
-
-import 'package:farmassist/data/farm/models/Location.dart';
 
 class OpenWeatherMapWeatherApi extends WeatherApi {
   static const endPointUrl = 'https://api.openweathermap.org/data/2.5';

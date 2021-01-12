@@ -1,13 +1,11 @@
 import 'package:farmassist/app_theme.dart';
-import 'package:farmassist/ui/diseases/disease_card_item.dart';
 import 'package:farmassist/ui/diseases/diagnosis.dart';
+import 'package:farmassist/ui/diseases/disease_card_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 class DiseaseCard extends StatelessWidget {
-
   const DiseaseCard({Key key, this.diseaseItem, this.getDisease})
       : super(key: key);
 
@@ -22,9 +20,8 @@ class DiseaseCard extends StatelessWidget {
     if (disease == null) {
       disease = 'DISEASE';
     } else {
-      for (int j = 0; j < 8; j++){
-        if (DiseaseCardItem.diseaseItem[j].diseaseName == disease)
-          i = j;
+      for (int j = 0; j < 8; j++) {
+        if (DiseaseCardItem.diseaseItem[j].diseaseName == disease) i = j;
       }
     }
 
@@ -32,14 +29,14 @@ class DiseaseCard extends StatelessWidget {
       child: Stack(
         alignment: AlignmentDirectional.center,
         children: <Widget>[
-          Padding (
-            padding: const EdgeInsets.only (
+          Padding(
+            padding: const EdgeInsets.only(
               left: 23.0,
               right: 23.0,
               top: 15.0,
               bottom: 18.0,
             ),
-            child: Stack (
+            child: Stack(
               children: <Widget>[
                 Container(
                   decoration: BoxDecoration(
@@ -146,5 +143,3 @@ class DiseaseCard extends StatelessWidget {
     );
   }
 }
-
-

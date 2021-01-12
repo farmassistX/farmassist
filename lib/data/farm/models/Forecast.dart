@@ -11,12 +11,12 @@ class Forecast {
 
   Forecast(
       {this.lastUpdated,
-        this.longitude,
-        this.latitude,
-        this.daily: const [],
-        this.current,
-        this.city,
-        this.isDayTime});
+      this.longitude,
+      this.latitude,
+      this.daily: const [],
+      this.current,
+      this.city,
+      this.isDayTime});
 
   static Forecast fromJson(dynamic json) {
     var weather = json['current']['weather'][0];

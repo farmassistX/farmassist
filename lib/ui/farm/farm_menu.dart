@@ -40,22 +40,22 @@ class _FarmMenuState extends State<FarmMenu> {
             },
           ),
           GFListTile(
-              avatar: GFAvatar(
-                backgroundImage: AssetImage('assets/images/manage_harvest.png'),
-                backgroundColor: GFColors.TRANSPARENT,
-              ),
-              titleText: 'Harvesting',
-              color: Colors.blueGrey[100],
-              subtitleText: 'Store and view harvesting related activities.',
-              icon: Icon(Icons.chevron_right),
-              onTap: (){
-                Navigator.push(
-                  context,
-                  PageTransition(
-                      type: PageTransitionType.leftToRightWithFade,
-                      child: HarvestMenu()),
-                );
-              },
+            avatar: GFAvatar(
+              backgroundImage: AssetImage('assets/images/manage_harvest.png'),
+              backgroundColor: GFColors.TRANSPARENT,
+            ),
+            titleText: 'Harvesting',
+            color: Colors.blueGrey[100],
+            subtitleText: 'Store and view harvesting related activities.',
+            icon: Icon(Icons.chevron_right),
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                    type: PageTransitionType.leftToRightWithFade,
+                    child: HarvestMenu()),
+              );
+            },
           ),
           GFListTile(
             avatar: GFAvatar(
@@ -76,24 +76,24 @@ class _FarmMenuState extends State<FarmMenu> {
             },
           ),
           GFListTile(
-              avatar: GFAvatar(
-                backgroundImage:
-                    AssetImage('assets/images/manage_statistics.png'),
-                backgroundColor: GFColors.TRANSPARENT,
-              ),
-              titleText: 'View Statistics',
-              subtitleText:
-                  'Numbers based on your planting and harvesting history.',
-              color: Colors.blueGrey[100],
-              icon: Icon(Icons.chevron_right),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  PageTransition(
-                      type: PageTransitionType.leftToRightWithFade,
-                      child: StatisticsHome()),
-                );
-              },
+            avatar: GFAvatar(
+              backgroundImage:
+                  AssetImage('assets/images/manage_statistics.png'),
+              backgroundColor: GFColors.TRANSPARENT,
+            ),
+            titleText: 'View Statistics',
+            subtitleText:
+                'Numbers based on your planting and harvesting history.',
+            color: Colors.blueGrey[100],
+            icon: Icon(Icons.chevron_right),
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                    type: PageTransitionType.leftToRightWithFade,
+                    child: StatisticsHome()),
+              );
+            },
           ),
         ],
       ),

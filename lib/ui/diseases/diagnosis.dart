@@ -5,7 +5,7 @@ class Diagnosis extends ChangeNotifier {
 
   String get getDisease => _disease;
 
-  void update (String disease) {
+  void update(String disease) {
     _disease = disease.toUpperCase();
     notifyListeners();
   }
