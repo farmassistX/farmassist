@@ -4,13 +4,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 final FirebaseAuth auth = FirebaseAuth.instance;
 final FirebaseFirestore db = FirebaseFirestore.instance;
 
-User user = auth.currentUser;
-final uid = user.uid;
-
 Map<int, String> _keys;
 Map<String, int> _keys2;
 
 Map<int, List> getHarvesting() {
+  User user = auth.currentUser;
+  final uid = user.uid;
+
   Map<int, List> _harvesting = new Map();
   _keys = new Map();
   _keys2 = new Map();

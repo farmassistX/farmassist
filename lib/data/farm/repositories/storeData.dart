@@ -28,8 +28,11 @@ void addData(Map<String, dynamic> obj) {
   CollectionReference cr =
       db.collection('planting').doc(uid).collection('month');
 
+  String name = obj['plantName'];
+  name = name.toLowerCase();
+
   Map<String, dynamic> data = {
-    "name": obj['plantName'],
+    "name": name,
     "noOfPlants": obj['plantNumber'],
     "date": formatted,
     "estimatedHarvest": obj['plantEstimated'],

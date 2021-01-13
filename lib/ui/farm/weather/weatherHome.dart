@@ -1,4 +1,5 @@
 import 'package:farmassist/data/farm/models/Weather.dart';
+import 'package:farmassist/data/farm/view_model/cityEntryViewModel.dart';
 import 'package:farmassist/data/farm/view_model/weather_app_forecast_viewmodel.dart';
 import 'package:farmassist/ui/farm/weather/weatherSummaryView.dart';
 import 'package:flutter/material.dart';
@@ -28,28 +29,35 @@ class _WeatherHomeState extends State<WeatherHome> {
     return Consumer<ForecastViewModel>(
         builder: (context, weatherViewModel, child) => Container(
             height: 225,
-            child: ListView(
-              children: <Widget>[
-                CityEntryView(),
-                weatherViewModel.isRequestPending
-                    ? buildBusyIndicator()
-                    : weatherViewModel.isRequestError
-                        ? Center(
-                            child: Text('Ooops...something went wrong',
-                                style: TextStyle(
-                                    fontSize: 21, color: Colors.white)))
-                        : Column(children: [
-                            WeatherSummary(
-                              condition: weatherViewModel.condition,
-                              temp: weatherViewModel.temp,
-                              feelsLike: weatherViewModel.feelsLike,
-                              isdayTime: weatherViewModel.isDaytime,
-                              iconData: weatherViewModel.iconData,
-                              // weatherModel: model,
-                            ),
-                          ]),
-              ],
-            )));
+            child: RefreshIndicator(
+              color: Colors.transparent,
+              backgroundColor: Colors.transparent,
+              onRefresh: () => refreshWeather(weatherViewModel, context),
+              child: ListView(
+                children: <Widget>[
+                  CityEntryView(),
+                  weatherViewModel.isRequestPending
+                      ? buildBusyIndicator()
+                      : weatherViewModel.isRequestError
+                      ? Center(
+                      child: Text('Ooops...something went wrong',
+                          style: TextStyle(
+                              fontSize: 21, color: Colors.white)))
+                      : Column(children: [
+                    WeatherSummary(
+                      condition: weatherViewModel.condition,
+                      temp: weatherViewModel.temp,
+                      feelsLike: weatherViewModel.feelsLike,
+                      isdayTime: weatherViewModel.isDaytime,
+                      iconData: weatherViewModel.iconData,
+                      // weatherModel: model,
+                    ),
+                  ]),
+                ],
+              ),
+            )
+        )
+    );
   }
 
   Widget buildBusyIndicator() {
@@ -66,6 +74,13 @@ class _WeatherHomeState extends State<WeatherHome> {
             fontWeight: FontWeight.w300,
           ))
     ]);
+  }
+
+  Future<void> refreshWeather(
+      ForecastViewModel weatherVM, BuildContext context) {
+    // get the current city
+    String city = Provider.of<CityEntryViewModel>(context, listen: false).city;
+    return weatherVM.getLatestWeather(city);
   }
 
   GradientContainer _buildGradientContainer(

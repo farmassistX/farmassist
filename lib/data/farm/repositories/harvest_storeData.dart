@@ -5,10 +5,9 @@ import 'package:intl/intl.dart';
 final FirebaseAuth auth = FirebaseAuth.instance;
 final FirebaseFirestore db = FirebaseFirestore.instance;
 
-User user = auth.currentUser;
-final uid = user.uid;
-
 void harvestData(Map<String, dynamic> obj){
+  User user = auth.currentUser;
+  final uid = user.uid;
 
   DateTime harvestDt = obj['harvestDate'];
 
@@ -36,6 +35,8 @@ void harvestData(Map<String, dynamic> obj){
 }
 
 void updatePlanting(String id){
+  User user = auth.currentUser;
+  final uid = user.uid;
 
   CollectionReference cr =
   db.collection("planting").doc(uid).collection('month');

@@ -4,10 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 final FirebaseAuth auth = FirebaseAuth.instance;
 final FirebaseFirestore db = FirebaseFirestore.instance;
 
-User user = auth.currentUser;
-final uid = user.uid;
+
 
 Map<DateTime, List> getHarvestEvents(){
+  User user = auth.currentUser;
+  final uid = user.uid;
   Map<DateTime, List> _events = new Map();
 
   db.collection('planting').doc(uid).collection('month')
