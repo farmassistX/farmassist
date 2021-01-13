@@ -138,7 +138,6 @@ class _formStorePlantingState extends State<formStorePlanting> {
                             onPressed: () {
                               _formKey.currentState.save();
                               if (_formKey.currentState.validate()) {
-                                print(_formKey.currentState.value);
                                 addData(_formKey.currentState.value);
                                 Navigator.pop(context);
                               } else {

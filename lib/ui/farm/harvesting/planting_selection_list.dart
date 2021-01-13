@@ -45,14 +45,11 @@ class _PlantingSelectionListState extends State<PlantingSelectionList> {
                     labelText: 'Month',
                   ),
                   onChanged: (value){
-                    print(_option);
                     User user = _auth.currentUser;
                     setState(() {
                       _option = value;
                       uid = user.uid;
                     });
-                    print(_option);
-                    print(uid);
                   },
                   allowClear: true,
                   hint: Text('Select Month'),

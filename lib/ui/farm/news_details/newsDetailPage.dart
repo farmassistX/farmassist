@@ -40,7 +40,6 @@ class NewsDetailPage extends StatelessWidget {
   }
 
   Widget _body(BuildContext context, Article article) {
-    print(article.content);
     return CustomScrollView(
       slivers: <Widget>[
         SliverToBoxAdapter(

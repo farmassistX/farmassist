@@ -47,7 +47,6 @@ class _WeatherHomeStatisticsState extends State<WeatherHomeStatistics> {
   }
 
   Widget buildDailySummary(List<Weather> dailyForecast) {
-    print(dailyForecast);
     return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,

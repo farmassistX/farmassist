@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:farmassist/data/farm/utils/weather_strings.dart';
 import 'package:farmassist/ui/farm/planting/display_planting.dart';
-import 'package:farmassist/ui/farm/statistics/utils/getEvents.dart';
+import 'package:farmassist/ui/farm/statistics/utils/getHarvestingInfo.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,7 +24,6 @@ class PlantingList extends StatefulWidget {
 class _PlantingListState extends State<PlantingList> {
   FirebaseAuth _auth = FirebaseAuth.instance;
 
-  final _monthOptions = ["January","February"];
   List months =
   ['January', 'February', 'March', 'April', 'May','June','July','August','September','October','November','December'];
   var _option;
@@ -50,14 +49,11 @@ class _PlantingListState extends State<PlantingList> {
                       labelText: 'Month',
                     ),
                     onChanged: (value){
-                      print(_option);
                       User user = _auth.currentUser;
                       setState(() {
                         _option = convert(value);
                         uid = user.uid;
                       });
-                      print(_option);
-                      print(uid);
                     },
                     allowClear: true,
                     hint: Text('Select Month'),

@@ -38,7 +38,6 @@ class Forecast {
     var tempDaily = [];
     if (hasDaily) {
       List items = json['daily'];
-      print(items);
       tempDaily = items
           .map((item) => Weather.fromDailyJson(item))
           .toList()

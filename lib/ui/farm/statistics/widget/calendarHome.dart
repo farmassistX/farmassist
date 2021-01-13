@@ -10,11 +10,9 @@ class CalendarScreen extends StatefulWidget {
 class _CalendarScreenState extends State<CalendarScreen> {
   void _handleNewDate(date) {
     setState(() {
-      print(date);
       _selectedDay = date;
       _selectedEvents = _events[_selectedDay] ?? [];
     });
-    print(_selectedEvents);
   }
 
   List _selectedEvents;
