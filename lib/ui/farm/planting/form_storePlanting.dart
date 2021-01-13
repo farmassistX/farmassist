@@ -71,6 +71,7 @@ class _formStorePlantingState extends State<formStorePlanting> {
                             name: 'plantNumber',
                             validator: FormBuilderValidators.compose([
                               FormBuilderValidators.required(context),
+                              FormBuilderValidators.integer(context, errorText: "Enter numbers only."),
                             ]),
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(

@@ -165,6 +165,7 @@ class _StoreHarvestingState extends State<StoreHarvesting> {
                             name: 'harvestQuantity',
                             validator: FormBuilderValidators.compose([
                               FormBuilderValidators.required(context),
+                              FormBuilderValidators.integer(context, errorText: "Enter numbers only."),
                             ]),
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
