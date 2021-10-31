@@ -1,15 +1,14 @@
 # Farmassist
 
-<p align=center><img src="/docs/img/app_icon.png" width=20% height=20%></p>
+<p align=center><img src="./docs/img/app_icon.png" width=20% height=20%></p>
 
 Farmassist is a smart farming app for IoT and AI-powered plant disease detection. It is built with Flutter and uses Firebase as its backend.
 
 ### App Screenshots
 
-| <img src="/docs/img/view_news.gif"> | <img src="/docs/img/monitor_iot.gif"> | <img src="/docs/img/detect_disease.gif"> |
-| :---------------------------------: | :-----------------------------------: | :--------------------------------------: |
-|      _View Agricultural News_       |     _Receive IoT Telemetry Data_      |          _Detect Plant Disease_          |
-
+| <img src="./docs/img/view_news.gif"> | <img src="./docs/img/monitor_iot.gif"> | <img src="./docs/img/detect_disease.gif"> |
+| :----------------------------------: | :------------------------------------: | :---------------------------------------: |
+|       _View Agricultural News_       |      _Receive IoT Telemetry Data_      |          _Detect Plant Disease_           |
 
 ### Download Android APK
 
@@ -17,7 +16,7 @@ You can download the latest version of the Android APK [here](https://github.com
 
 ## Architecture
 
-<p align=center><img src="/docs/img/architecture.png" width=75% height=75%></p>
+<p align=center><img src="./docs/img/architecture.png" width=75% height=75%></p>
 <p align="center"><i>Architecture Diagram of Farmassist</i></p>
 
 The above illustration shows a high level overview of the Farmassist project. Farmassist consists of 3 subsystems:
