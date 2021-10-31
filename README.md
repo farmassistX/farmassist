@@ -6,11 +6,10 @@ Farmassist is a smart farming app for IoT and AI-powered plant disease detection
 
 ### App Screenshots
 
-|   <img src="/docs/img/view_news.gif">    | <img src="/docs/img/monitor_iot.gif"> |
-| :--------------------------------------: | :-----------------------------------: |
-|         _View Agricultural News_         |     _Receive IoT Telemetry Data_      |
-| <img src="/docs/img/detect_disease.gif"> |                                       |
-|          _Detect Plant Disease_          |                                       |
+| <img src="/docs/img/view_news.gif"> | <img src="/docs/img/monitor_iot.gif"> | <img src="/docs/img/detect_disease.gif"> |
+| :---------------------------------: | :-----------------------------------: | :--------------------------------------: |
+|      _View Agricultural News_       |     _Receive IoT Telemetry Data_      |          _Detect Plant Disease_          |
+
 
 ### Download Android APK
 
@@ -42,7 +41,7 @@ The following sections explain more detail about the services and components use
 
 The signup and login flow of Farmassist is developed using the [Bloc](https://bloclibrary.dev/#/) library and Firebase Authentication. After a user signs up successfully, the user data will be stored in the data model of Cloud Firestore as shown below:
 
-```json
+```
 {
   "users": { // "users" collection
     "4lbwvicymz71LfY9POHZ": { // "userId" document
@@ -63,7 +62,7 @@ Cloud Firestore, a NoSQL, document-oriented database, is used to store farm mana
 
 There are 2 types of farm management data stored: **planting data** and **harvesting data**. An example of the data model for harvesting data is shown below:
 
-```json
+```
 {
   "planting": { // "planting" collection
     "4lbwvicymz71LfY9POHZ": { // "userId" document
@@ -108,7 +107,7 @@ Realtime Database acts as a repository of IoT telemetry data that performs data 
 
 Each telemetry data is stored as a key-value pair of timestamp and value. An example of the data model for telemetry data is shown below:
 
-```json
+```
 {
   "telemetry_data": {
     "4lbwvicymz71LfY9POHZ": { // userId
